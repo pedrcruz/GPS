@@ -5,4 +5,6 @@ package com.example.isec_aulas.juniorpaint;
  */
 
 public class Cor extends FerramentaSelecao {
+    private int codigoCor;
+    private String cor;
 }

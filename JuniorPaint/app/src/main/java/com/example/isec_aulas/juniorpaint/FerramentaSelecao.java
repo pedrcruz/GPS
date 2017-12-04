@@ -5,4 +5,5 @@ package com.example.isec_aulas.juniorpaint;
  */
 
 class FerramentaSelecao {
+    private int idFerramenta;
 }

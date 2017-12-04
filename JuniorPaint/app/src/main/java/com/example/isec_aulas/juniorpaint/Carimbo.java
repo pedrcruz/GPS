@@ -5,4 +5,6 @@ package com.example.isec_aulas.juniorpaint;
  */
 
 public class Carimbo extends FerramentaDesenho {
+    private int idCarimbo;
+    private String nome;
 }

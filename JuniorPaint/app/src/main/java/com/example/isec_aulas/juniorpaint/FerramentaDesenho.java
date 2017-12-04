@@ -5,4 +5,9 @@ package com.example.isec_aulas.juniorpaint;
  */
 
 class FerramentaDesenho {
+    private int idFerramenta;
+    private int inicioX;
+    private int inicioY;
+    private int fimX;
+    private int fimY;
 }
