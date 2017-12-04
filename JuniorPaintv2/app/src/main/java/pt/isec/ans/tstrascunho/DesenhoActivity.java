@@ -1,4 +1,4 @@
-package com.example.isec_aulas.juniorpaint;
+package pt.isec.ans.tstrascunho;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Desenha extends Activity {
+public class DesenhoActivity extends Activity {
     Desenho desenho;
     AreaDesenho ad;
     FrameLayout fr;
@@ -26,10 +26,10 @@ public class Desenha extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.desenha);
+        setContentView(R.layout.activity_desenho);
 
         if ((savedInstanceState!=null && savedInstanceState.getBoolean("Gravado")) ||
-                getIntent().getBooleanExtra("Editar",false))  {
+             getIntent().getBooleanExtra("Editar",false))  {
             desenho = ((Aplicacao)getApplication()).save;
         } else {
             strTitulo = getIntent().getStringExtra("Titulo");
@@ -45,13 +45,12 @@ public class Desenha extends Activity {
             Aplicacao.addDesenho(desenho);
         }
 
-        fr = (FrameLayout) findViewById(R.id.frDesenha);
+        fr = (FrameLayout) findViewById(R.id.frDesenho);
         ad = new AreaDesenho(this,desenho);
         fr.addView(ad);
 
         getActionBar().setTitle(desenho.strTitulo);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,7 +58,6 @@ public class Desenha extends Activity {
         mi.inflate(R.menu.menu_desenho,menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,7 +84,6 @@ public class Desenha extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -178,7 +175,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
         paint.setStrokeWidth(5);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
-
+        
     }
 
     @Override

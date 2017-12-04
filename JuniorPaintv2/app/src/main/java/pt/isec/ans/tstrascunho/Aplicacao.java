@@ -1,4 +1,4 @@
-package com.example.isec_aulas.juniorpaint;
+package pt.isec.ans.tstrascunho;
 
 import android.app.Application;
 import android.content.Context;
@@ -19,12 +19,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-
-
+/**
+ * Created by ans on 18/10/2017.
+ */
 
 public class Aplicacao extends Application {
     public Desenho save;
-    ArrayList<Desenho> lstDesenhos = null;
+    ArrayList<Desenho> lstDesenhos;
     private static Aplicacao obj;
 
     public Aplicacao() {
