@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
     }
 
     public void onDesenha(View v) {
-        Intent intent = new Intent(this,Desenha.class);
+        Intent intent = new Intent(this,teste.class);
         startActivity(intent);
     }
 /*
