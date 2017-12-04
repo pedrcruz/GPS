@@ -52,7 +52,7 @@ public class GaleriaActivity extends Activity {
             String strTitulo = ((EditText)findViewById(R.id.edTitulo)).getText().toString();
             if (strTitulo.isEmpty()) {
                 findViewById(R.id.edTitulo).requestFocus();
-                setImgFromAsset(imagePreview,"image1.png");//Para exemplificar assets... REMOVER
+                setImgFromAsset(imagePreview,"image" + Math.random() * 6 + ".jpg");//Para exemplificar assets... REMOVER
                 return true;
             }
             Intent intent = new Intent(this,DesenhoActivity.class);
