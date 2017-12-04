@@ -5,4 +5,6 @@ package com.example.isec_aulas.juniorpaint;
  */
 
 public class Lapis extends FerramentaDesenho {
+    private int listaPontosX[];
+    private int listaPontosY[];
 }
