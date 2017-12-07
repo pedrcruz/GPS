@@ -45,7 +45,7 @@ public class DesenhoActivity extends Activity {
             Aplicacao.addDesenho(desenho);
         }
 
-        fr = (FrameLayout) findViewById(R.id.frDesenho);
+        fr = (FrameLayout) findViewById(R.id.frDesenha);
         ad = new AreaDesenho(this,desenho);
         fr.addView(ad);
 
