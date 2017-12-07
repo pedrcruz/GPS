@@ -20,14 +20,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public class GaleriaActivity extends Activity {
 
     String imageFilePath=null;
     ImageView imagePreview;
-    String random=null;
     int n = 6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class GaleriaActivity extends Activity {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
                 requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
         }
+        copyAssets();
 
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
 
@@ -54,13 +57,8 @@ public class GaleriaActivity extends Activity {
         imagePreview.setImageResource(imageArr[choosedphoto]);
         Intent intent = new Intent(this,DesenhoActivity.class);
 
-        imageFilePath = Uri.parse("file:///android_asset/image1.jpg").toString();
+        imageFilePath = new File(getFilesDir(),"image1.jpg").getAbsolutePath();
 
-        try {
-            imageFilePath = getAssets().open("image/image1").toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Log.i("alo", imageFilePath);
         intent.putExtra("ImagemFundo", imageFilePath);
         intent.putExtra("Titulo","Titulo");
@@ -135,4 +133,52 @@ public class GaleriaActivity extends Activity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    private void copyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        if (files != null) for (String filename : files) {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = assetManager.open(filename);
+                File outFile = new File(getExternalFilesDir(null), filename);
+                out = new FileOutputStream(outFile);
+                copyFile(in, out);
+            } catch(IOException e) {
+                Log.e("tag", "Failed to copy asset file: " + filename, e);
+            }
+            finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+            }
+        }
+    }
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
 }
+
+

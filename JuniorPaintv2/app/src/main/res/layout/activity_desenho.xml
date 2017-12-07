@@ -160,11 +160,128 @@
        android:layout_gravity="right"
        android:layout_marginTop="62dp"
        android:padding="6dp"
+<<<<<<< HEAD
        android:layout_weight="2">
 
 
 
    </FrameLayout>
+=======
+       android:layout_weight="1">
+
+       <ImageView
+           android:src="@mipmap/lapis"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+
+           />
+
+       <ImageView
+           android:src="@mipmap/balde"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+       <ImageView
+           android:src="@mipmap/borracha"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           />
+
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal"
+           android:padding="3dp">
+           <LinearLayout
+               android:layout_width="35dp"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="@android:color/white"
+                   android:layout_marginBottom="7dp"/>
+
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="@android:color/holo_blue_bright"
+                   android:layout_marginBottom="7dp"/>
+
+               <TextView
+
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:background="#ffc0cd"
+                   android:layout_marginBottom="7dp"/>
+
+               <TextView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:background="#808080"
+               android:layout_marginBottom="7dp"/>
+
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#800080"
+                   android:layout_marginBottom="7dp"/>
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#a52a2a"
+                   android:layout_marginBottom="7dp"/>
+
+
+           </LinearLayout>
+           <LinearLayout
+
+               android:layout_width="35dp"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="@android:color/black"
+                   android:layout_marginBottom="7dp"
+                   android:onClick="cblack"/>
+
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#ffa500"
+                   android:layout_marginBottom="7dp"/>
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#00ff44"
+                   android:layout_marginBottom="7dp"/>
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#ffff00"
+                   android:layout_marginBottom="7dp"/>
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#ff0000"
+                   android:layout_marginBottom="7dp"/>
+               <TextView
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:background="#321ac7"
+                   android:layout_marginBottom="7dp"/>
+           </LinearLayout>
+
+       </LinearLayout>
+
+
+
+
+   </LinearLayout>
+>>>>>>> 4b7919f8ba4c8f7d52d8e01e765d8f65eea681c8
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -257,4 +374,23 @@
             android:layout_gravity="end"/>
     </LinearLayout>
     </LinearLayout>
+<<<<<<< HEAD
+=======
+
+    <FrameLayout
+        android:id="@+id/frDesenho"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="47dp"
+        android:layout_weight="1">
+
+
+    </FrameLayout>
+
+
+>>>>>>> 4b7919f8ba4c8f7d52d8e01e765d8f65eea681c8
 </FrameLayout>

@@ -14,6 +14,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ public class DesenhoActivity extends Activity {
             Aplicacao.addDesenho(desenho);
         }
 
+
         fr = (FrameLayout) findViewById(R.id.frAreaDesenho);
         ad = new AreaDesenho(this,desenho);
         fr.addView(ad);
@@ -60,6 +64,15 @@ public class DesenhoActivity extends Activity {
         return true;
     }
 
+    public boolean option( smth)
+    {
+        int x;
+        switch(findViewById(x))
+        {
+            case R.id.cblack:
+
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -167,9 +180,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
         super(context);
         this.desenho = desenho;
         corLinha = Color.BLACK;
-        if (desenho.imagemFundo == null)
-            setBackgroundColor(desenho.corFundo);
-        else
+        if (desenho.imagemFundo != null)
             Aplicacao.setPic(this,desenho.imagemFundo);
 
         gd = new GestureDetector(context, this);

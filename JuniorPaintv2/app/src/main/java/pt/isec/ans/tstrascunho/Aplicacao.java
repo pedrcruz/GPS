@@ -2,21 +2,26 @@ package pt.isec.ans.tstrascunho;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +55,7 @@ public class Aplicacao extends Application {
 
     public static void gravar() {
         try {
-            FileOutputStream fos=obj.openFileOutput("desenhos.dat",MODE_PRIVATE);
+            FileOutputStream fos = obj.openFileOutput("desenhos.dat", MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(obj.lstDesenhos);
             fos.close();
@@ -63,12 +68,12 @@ public class Aplicacao extends Application {
     }
 
     public static void ler() {
-        obj.lstDesenhos=null;
+        obj.lstDesenhos = null;
         try {
-            FileInputStream fis=obj.openFileInput("desenhos.dat");
+            FileInputStream fis = obj.openFileInput("desenhos.dat");
             ObjectInputStream ois = new ObjectInputStream(fis);
             ArrayList<Desenho> lst = (ArrayList<Desenho>) ois.readObject();
-            obj.lstDesenhos=lst;
+            obj.lstDesenhos = lst;
             fis.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -94,7 +99,7 @@ public class Aplicacao extends Application {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -110,7 +115,7 @@ public class Aplicacao extends Application {
         int targetW = view.getWidth();
         int targetH = view.getHeight();
 
-        if (targetH==0 || targetW == 0) {
+        if (targetH == 0 || targetW == 0) {
             WindowManager wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
             DisplayMetrics metrics = new DisplayMetrics();
@@ -122,13 +127,13 @@ public class Aplicacao extends Application {
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions); // existem outros. Ex: decodeStream
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions); // existem outros. Ex: decodeStream
 
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -136,8 +141,7 @@ public class Aplicacao extends Application {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        BitmapDrawable bd = new BitmapDrawable(view.getResources(),bitmap);
+        BitmapDrawable bd = new BitmapDrawable(view.getResources(), bitmap);
         view.setBackground(bd);
     }
-
 }
