@@ -20,19 +20,29 @@
         android:padding="6dp">
 
         <ImageView
+            android:id="@+id/lapis"
+            android:onClick="onChoosingFerramentaDesenho"
+            android:clickable="true"
+            android:state_selected="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/lapis"
-
-            />
+            android:src="@mipmap/lapis"/>
 
         <ImageView
+            android:id="@+id/balde"
+            android:onClick="onChoosingFerramentaDesenho"
+            android:state_selected="false"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/balde" />
 
         <ImageView
+            android:id="@+id/borracha"
+            android:onClick="onChoosingFerramentaDesenho"
+            android:state_selected="false"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

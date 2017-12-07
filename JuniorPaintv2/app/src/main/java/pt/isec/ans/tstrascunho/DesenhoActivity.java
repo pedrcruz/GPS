@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DesenhoActivity extends Activity {
+    int currentColorState = 99;
     Desenho desenho;
     AreaDesenho ad;
     FrameLayout fr;
@@ -67,7 +68,7 @@ public class DesenhoActivity extends Activity {
         return true;
     }
 
-
+//LIXO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -110,36 +111,85 @@ public class DesenhoActivity extends Activity {
         //Cor 1
         TextView tvCorSelecionada=null;
         ColorDrawable cd;
+//SE A BORRACHA NAO ESTIVER SELECCIONADA, MUDA A COR
+        if(!findViewById(R.id.borracha).isSelected()) {
 //PROCURA a TextView Seleccionada
+            if (findViewById(R.id.cor1).isPressed() == true) //cor 1
+                tvCorSelecionada = findViewById(R.id.cor1);
+            else if (findViewById(R.id.cor2).isPressed() == true) //cor 2
+                tvCorSelecionada = findViewById(R.id.cor2);
+            else if (findViewById(R.id.cor3).isPressed() == true) //cor 3
+                tvCorSelecionada = findViewById(R.id.cor3);
+            else if (findViewById(R.id.cor4).isPressed() == true) //cor 4
+                tvCorSelecionada = findViewById(R.id.cor4);
+            else if (findViewById(R.id.cor5).isPressed() == true) //cor 5
+                tvCorSelecionada = findViewById(R.id.cor5);
+            else if (findViewById(R.id.cor6).isPressed() == true) //cor 6
+                tvCorSelecionada = findViewById(R.id.cor6);
+            else if (findViewById(R.id.cor7).isPressed() == true) //cor 7
+                tvCorSelecionada = findViewById(R.id.cor7);
+            else if (findViewById(R.id.cor8).isPressed() == true) //cor 8
+                tvCorSelecionada = findViewById(R.id.cor8);
+            else if (findViewById(R.id.cor9).isPressed() == true) //cor 9
+                tvCorSelecionada = findViewById(R.id.cor9);
+            else if (findViewById(R.id.cor10).isPressed() == true) //cor 10
+                tvCorSelecionada = findViewById(R.id.cor10);
+            else if (findViewById(R.id.cor11).isPressed() == true) //cor 11
+                tvCorSelecionada = findViewById(R.id.cor11);
+            else if (findViewById(R.id.cor12).isPressed() == true) //cor 12
+                tvCorSelecionada = findViewById(R.id.cor12);
 
-        if(findViewById(R.id.cor1).isPressed()==true) //cor 1
-            tvCorSelecionada = findViewById(R.id.cor1);
-        else if(findViewById(R.id.cor2).isPressed()==true) //cor 2
-            tvCorSelecionada = findViewById(R.id.cor2);
-        else if(findViewById(R.id.cor3).isPressed()==true) //cor 3
-            tvCorSelecionada = findViewById(R.id.cor3);
-        else if(findViewById(R.id.cor4).isPressed()==true) //cor 4
-            tvCorSelecionada = findViewById(R.id.cor4);
-        else if(findViewById(R.id.cor5).isPressed()==true) //cor 5
-            tvCorSelecionada = findViewById(R.id.cor5);
-        else if(findViewById(R.id.cor6).isPressed()==true) //cor 6
-            tvCorSelecionada = findViewById(R.id.cor6);
-        else if(findViewById(R.id.cor7).isPressed()==true) //cor 7
-            tvCorSelecionada = findViewById(R.id.cor7);
-        else if(findViewById(R.id.cor8).isPressed()==true) //cor 8
-            tvCorSelecionada = findViewById(R.id.cor8);
-        else if(findViewById(R.id.cor9).isPressed()==true) //cor 9
-            tvCorSelecionada = findViewById(R.id.cor9);
-        else if(findViewById(R.id.cor10).isPressed()==true) //cor 10
-            tvCorSelecionada = findViewById(R.id.cor10);
-        else if(findViewById(R.id.cor11).isPressed()==true) //cor 11
-            tvCorSelecionada = findViewById(R.id.cor11);
-        else if(findViewById(R.id.cor12).isPressed()==true) //cor 12
-            tvCorSelecionada = findViewById(R.id.cor12);
+            cd = (ColorDrawable) tvCorSelecionada.getBackground();//busca a cor do background
+            ad.setCorLinha(cd.getColor());                        //atribui a cor da TV ao lápis
 
-        cd = (ColorDrawable) tvCorSelecionada.getBackground();//busca a cor do background
-        ad.setCorLinha(cd.getColor());                        //atribui a cor da TV ao lápis
+        }
+    }
+    public void seleccionaFerramenta(String nome){
+        if(nome.equals("borracha")) {
+            findViewById(R.id.borracha).setSelected(true);
+            findViewById(R.id.lapis).setSelected(false);
+            findViewById(R.id.balde).setSelected(false);
+            findViewById(R.id.borracha).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
+        }
+        else if(nome.equals("lapis")) {
+            findViewById(R.id.borracha).setSelected(false);
+            findViewById(R.id.lapis).setSelected(true);
+            findViewById(R.id.balde).setSelected(false);
+            findViewById(R.id.lapis).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
+        }
+        else if(nome.equals("balde")) {
+            findViewById(R.id.borracha).setSelected(false);
+            findViewById(R.id.lapis).setSelected(false);
+            findViewById(R.id.balde).setSelected(true);
+            findViewById(R.id.balde).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
+        }
+    }
+    public void onChoosingFerramentaDesenho(View v){
+        if(findViewById(R.id.balde).isPressed()==true){
+            seleccionaFerramenta("balde");
 
+        }
+        else if(findViewById(R.id.borracha).isPressed()==true){
+            seleccionaFerramenta("borracha");
+
+            currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
+            ad.paint.setStrokeWidth(20);
+            ad.setCorLinha(Color.WHITE);
+            ad.paint.setStyle(Paint.Style.FILL);
+        }
+        else if(findViewById(R.id.lapis).isPressed()==true){
+            seleccionaFerramenta("lapis");
+            if(currentColorState != 99)
+                ad.paint.setColor(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
+            ad.paint.setStrokeWidth(5);
+            ad.paint.setStyle(Paint.Style.FILL);
+        }
 
     }
 }
