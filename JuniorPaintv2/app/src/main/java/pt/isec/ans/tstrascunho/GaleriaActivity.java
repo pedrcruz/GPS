@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -53,7 +54,15 @@ public class GaleriaActivity extends Activity {
         imagePreview.setImageResource(imageArr[choosedphoto]);
         Intent intent = new Intent(this,DesenhoActivity.class);
 
-        intent.putExtra("ImagemFundo", "android.resource://pt.isec.ans.tstrascunho/drawable/image1.jpg");
+        imageFilePath = Uri.parse("file:///android_asset/image1.jpg").toString();
+
+        try {
+            imageFilePath = getAssets().open("image/image1").toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.i("alo", imageFilePath);
+        intent.putExtra("ImagemFundo", imageFilePath);
         intent.putExtra("Titulo","Titulo");
         startActivity(intent);
         finish();
@@ -114,7 +123,7 @@ public class GaleriaActivity extends Activity {
             if (_uri != null) {
 
                 Cursor cursor = getContentResolver().query(_uri,
-                        new String[] { "android.resource://your.package.here/drawable/image1.jpg" },
+                        new String[] { "file" },
                         null, null, null);
                 Log.i("ddd",cursor.toString());
                 cursor.moveToFirst();

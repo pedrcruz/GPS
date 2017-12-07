@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -139,6 +140,7 @@ class Desenho implements Serializable{
         this.tabLinhas = new ArrayList<>();
         dataCriacao = new Date();
     }
+
     void addPonto(Ponto p) {
         tabLinhas.get(tabLinhas.size()-1).tabPontos.add(p);
     }

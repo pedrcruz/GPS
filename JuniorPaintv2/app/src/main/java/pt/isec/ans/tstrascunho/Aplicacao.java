@@ -122,7 +122,8 @@ public class Aplicacao extends Application {
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions); // existem outros. Ex: decodeStream
+            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions); // existem outros. Ex: decodeStream
+
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
