@@ -64,15 +64,7 @@ public class DesenhoActivity extends Activity {
         return true;
     }
 
-    public boolean option( smth)
-    {
-        int x;
-        switch(findViewById(x))
-        {
-            case R.id.cblack:
 
-        }
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
