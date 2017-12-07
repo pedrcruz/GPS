@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +26,8 @@ public class GaleriaActivity extends Activity {
 
     String imageFilePath=null;
     ImageView imagePreview;
-
+    String random=null;
+    int n = 6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,25 @@ public class GaleriaActivity extends Activity {
         }
 
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
+
+        int imageArr[] = new int[n];
+        imageArr[0] = R.drawable.image1;
+        imageArr[1] = R.drawable.image2;
+        imageArr[2] = R.drawable.image3;
+        imageArr[3] = R.drawable.image4;
+        imageArr[4] = R.drawable.image5;
+        imageArr[5] = R.drawable.image6;
+
+        int choosedphoto = (int)(Math.random()*n );
+
+        imagePreview.setImageResource(imageArr[choosedphoto]);
+        Intent intent = new Intent(this,DesenhoActivity.class);
+
+        intent.putExtra("ImagemFundo", "android.resource://pt.isec.ans.tstrascunho/drawable/image1.jpg");
+        intent.putExtra("Titulo","Titulo");
+        startActivity(intent);
+        finish();
+
     }
 
     @Override
@@ -52,11 +73,11 @@ public class GaleriaActivity extends Activity {
             String strTitulo = ((EditText)findViewById(R.id.edTitulo)).getText().toString();
             if (strTitulo.isEmpty()) {
                 findViewById(R.id.edTitulo).requestFocus();
-                setImgFromAsset(imagePreview,"image1.png");//Para exemplificar assets... REMOVER
+                setImgFromAsset(imagePreview,"image1.jpg");//Para exemplificar assets... REMOVER
                 return true;
             }
             Intent intent = new Intent(this,DesenhoActivity.class);
-            intent.putExtra("ImagemFundo", imageFilePath);
+            intent.putExtra("ImagemFundo", "drawable://image1.jpg");
             intent.putExtra("Titulo",strTitulo);
             startActivity(intent);
             finish();
@@ -93,9 +114,9 @@ public class GaleriaActivity extends Activity {
             if (_uri != null) {
 
                 Cursor cursor = getContentResolver().query(_uri,
-                        new String[] { MediaStore.Images.ImageColumns.DATA },
+                        new String[] { "android.resource://your.package.here/drawable/image1.jpg" },
                         null, null, null);
-
+                Log.i("ddd",cursor.toString());
                 cursor.moveToFirst();
 
                 imageFilePath = cursor.getString(0);
