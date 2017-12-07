@@ -53,7 +53,7 @@ public class GaleriaActivity extends Activity {
         imagePreview.setImageResource(imageArr[choosedphoto]);
         Intent intent = new Intent(this,DesenhoActivity.class);
 
-        intent.putExtra("ImagemFundo", "FALTA ISTO");
+        intent.putExtra("ImagemFundo", "android.resource://pt.isec.ans.tstrascunho/drawable/image1.jpg");
         intent.putExtra("Titulo","Titulo");
         startActivity(intent);
         finish();
