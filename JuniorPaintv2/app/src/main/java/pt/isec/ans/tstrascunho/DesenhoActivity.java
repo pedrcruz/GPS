@@ -5,7 +5,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,6 +105,42 @@ public class DesenhoActivity extends Activity {
         super.onSaveInstanceState(outState);
         ((Aplicacao)getApplication()).save = desenho;
         outState.putBoolean("Gravado",true);
+    }
+    public void onChoosingColor(View v){
+        //Cor 1
+        TextView tvCorSelecionada=null;
+        ColorDrawable cd;
+//PROCURA a TextView Seleccionada
+
+        if(findViewById(R.id.cor1).isPressed()==true) //cor 1
+            tvCorSelecionada = findViewById(R.id.cor1);
+        else if(findViewById(R.id.cor2).isPressed()==true) //cor 2
+            tvCorSelecionada = findViewById(R.id.cor2);
+        else if(findViewById(R.id.cor3).isPressed()==true) //cor 3
+            tvCorSelecionada = findViewById(R.id.cor3);
+        else if(findViewById(R.id.cor4).isPressed()==true) //cor 4
+            tvCorSelecionada = findViewById(R.id.cor4);
+        else if(findViewById(R.id.cor5).isPressed()==true) //cor 5
+            tvCorSelecionada = findViewById(R.id.cor5);
+        else if(findViewById(R.id.cor6).isPressed()==true) //cor 6
+            tvCorSelecionada = findViewById(R.id.cor6);
+        else if(findViewById(R.id.cor7).isPressed()==true) //cor 7
+            tvCorSelecionada = findViewById(R.id.cor7);
+        else if(findViewById(R.id.cor8).isPressed()==true) //cor 8
+            tvCorSelecionada = findViewById(R.id.cor8);
+        else if(findViewById(R.id.cor9).isPressed()==true) //cor 9
+            tvCorSelecionada = findViewById(R.id.cor9);
+        else if(findViewById(R.id.cor10).isPressed()==true) //cor 10
+            tvCorSelecionada = findViewById(R.id.cor10);
+        else if(findViewById(R.id.cor11).isPressed()==true) //cor 11
+            tvCorSelecionada = findViewById(R.id.cor11);
+        else if(findViewById(R.id.cor12).isPressed()==true) //cor 12
+            tvCorSelecionada = findViewById(R.id.cor12);
+
+        cd = (ColorDrawable) tvCorSelecionada.getBackground();//busca a cor do background
+        ad.setCorLinha(cd.getColor());                        //atribui a cor da TV ao lápis
+
+
     }
 }
 

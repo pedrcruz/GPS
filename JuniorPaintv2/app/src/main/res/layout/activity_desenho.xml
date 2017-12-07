@@ -13,7 +13,7 @@
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:layout_marginTop="62dp"
+
         android:layout_weight="1"
         android:background="#aaa"
         android:orientation="vertical"
@@ -52,6 +52,8 @@
 
                 <TextView
                     android:id="@+id/cor1"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -60,6 +62,8 @@
                 <TextView
 
                     android:id="@+id/cor2"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -67,6 +71,8 @@
 
                 <TextView
                     android:id="@+id/cor3"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -74,6 +80,8 @@
 
                 <TextView
                     android:id="@+id/cor4"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -81,6 +89,8 @@
 
                 <TextView
                     android:id="@+id/cor5"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -88,6 +98,8 @@
 
                 <TextView
                     android:id="@+id/cor6"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -104,6 +116,8 @@
 
                 <TextView
                     android:id="@+id/cor7"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -111,6 +125,8 @@
 
                 <TextView
                     android:id="@+id/cor8"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -118,6 +134,8 @@
 
                 <TextView
                     android:id="@+id/cor9"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -125,6 +143,8 @@
 
                 <TextView
                     android:id="@+id/cor10"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -132,6 +152,8 @@
 
                 <TextView
                     android:id="@+id/cor11"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -139,6 +161,8 @@
 
                 <TextView
                     android:id="@+id/cor12"
+                    android:onClick="onChoosingColor"
+                    android:clickable="true"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginBottom="7dp"
@@ -168,6 +192,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="#aaa"
+        android:layout_marginLeft="80dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
