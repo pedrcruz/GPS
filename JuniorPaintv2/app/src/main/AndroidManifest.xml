@@ -19,19 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity android:name=".SolidoActivity" android:screenOrientation="sensorLandscape" />
         <activity android:name=".GaleriaActivity" android:screenOrientation="sensorLandscape" />
         <activity android:name=".CameraActivity" android:screenOrientation="sensorLandscape" />
         <activity android:name=".HistoricoActivity" android:screenOrientation="sensorLandscape" />
         <activity android:name=".DesenhoActivity" android:screenOrientation="sensorLandscape"></activity>
-=======
-        <activity android:name=".SolidoActivity" android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".GaleriaActivity" />
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".HistoricoActivity" />
-        <activity android:name=".DesenhoActivity"></activity>
->>>>>>> PedroC
+
+
     </application>
 
 </manifest>

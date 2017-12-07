@@ -19,7 +19,7 @@
        android:layout_weight="1">
 
        <ImageView
-           android:src="@drawable/lapis"
+           android:src="@mipmap/lapis"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
@@ -27,11 +27,11 @@
            />
 
        <ImageView
-           android:src="@drawable/balde"
+           android:src="@mipmap/balde"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"/>
        <ImageView
-           android:src="@drawable/borracha"
+           android:src="@mipmap/borracha"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
@@ -149,37 +149,37 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_barco"
+            android:src="@mipmap/c_barco"
             android:layout_weight="1"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_basket"
+            android:src="@mipmap/c_basket"
             android:layout_weight="1"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_bola"
+            android:src="@mipmap/c_bola"
             android:layout_weight="1"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_sol"
+            android:src="@mipmap/c_sol"
             android:layout_weight="1"/>
         <ImageView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:src="@drawable/c_cao"
+        android:src="@mipmap/c_cao"
         android:layout_weight="1"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_nave"
+            android:src="@mipmap/c_nave"
             android:layout_weight="1"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@drawable/c_carro"
+            android:src="@mipmap/c_carro"
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -210,7 +210,7 @@
             style="@android:style/Widget.Material.Light.Button.Borderless"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/home"
+            android:background="@mipmap/home"
             android:layout_gravity="end"/>
     </LinearLayout>
 
