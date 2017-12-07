@@ -40,13 +40,13 @@ public class DesenhoActivity extends Activity {
             if (strImage !=null)
                 desenho = new Desenho(strTitulo,strImage);
             else {
-                int cor = getIntent().getIntExtra("CorFundo", Color.WHITE);
+                int cor = getIntent().getIntExtra("CorFundo", Color.RED);
                 desenho = new Desenho(strTitulo, cor);
             }
             Aplicacao.addDesenho(desenho);
         }
 
-        fr = (FrameLayout) findViewById(R.id.frDesenha);
+        fr = (FrameLayout) findViewById(R.id.frAreaDesenho);
         ad = new AreaDesenho(this,desenho);
         fr.addView(ad);
 

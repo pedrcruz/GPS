@@ -58,6 +58,7 @@
                     android:background="@android:color/white" />
 
                 <TextView
+                    android:onClick=""
                     android:id="@+id/cor2"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -155,11 +156,11 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:background="#FFFFCC"
-       android:orientation="vertical"
+       android:orientation="horizontal"
        android:layout_gravity="right"
        android:layout_marginTop="62dp"
        android:padding="6dp"
-       android:layout_weight="1">
+       android:layout_weight="2">
 
 
 

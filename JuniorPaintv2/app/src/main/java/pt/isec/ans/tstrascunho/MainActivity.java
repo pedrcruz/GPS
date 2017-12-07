@@ -23,7 +23,11 @@ public class MainActivity extends Activity {
     }
 
     public void onGaleria(View v) {
-        Intent intent = new Intent(this,GaleriaActivity.class);
+       Intent intent = new Intent(this,GaleriaActivity.class);
+        startActivity(intent);
+    }
+    public void onNovoJogo(View v) {
+        Intent intent = new Intent(this,DesenhoActivity.class);
         startActivity(intent);
     }
     public void onCamera(View v) {
