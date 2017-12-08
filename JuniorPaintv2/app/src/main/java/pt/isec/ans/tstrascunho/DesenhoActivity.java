@@ -241,11 +241,12 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
 
     class Carimbo implements Serializable {
-        ImageView img;
+        float x, y;
 
-      public Carimbo(ImageView img) {
-
-      }
+        public Carimbo(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
 
      public void putCarimbo(String img) {
 
@@ -280,7 +281,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ArrayList<Linha> tabLinhas;
         Date dataCriacao;
         ImageView carimbo;
-
+        int x,y;
 
         public Desenho(String strTitulo, int corFundo) {
             this.strTitulo = strTitulo;
@@ -312,9 +313,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             tabLinhas.add(linha);
         }
 
-        void addCarimbo() {
-            if (carimbo != null) {
-
+        void addCarimbo(Carimbo c) {
+            if (c != null) {
+                this.x = (int)c.x;
+                this.y = (int)c.y;
             }
         }
 
@@ -382,11 +384,11 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             float canvasy = (float) getHeight();
             ;
 
-            //    Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+                Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
             float bitmapx = (float) myBitmap.getWidth();
             float bitmapy = (float) myBitmap.getHeight();
-            float boardPosX = (canvasx - bitmapx) / 2;
-            float boardPosY = (canvasy - bitmapy) / 2;
+            float boardPosX = desenho.x -  bitmapx / 2;
+            float boardPosY =  desenho.y -  bitmapy / 2;
 
             //      canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
             //       invalidate();
@@ -395,6 +397,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             //    canvas.drawBitmap(myBitmap,getPivotX(),getPivotY() , null);
 
             //   }
+          canvas.drawBitmap(indexcanvas,boardPosX,boardPosY, paint);
             float lastx = 0, lasty = 0;
             for (int i = 0; i < desenho.tabLinhas.size(); i++) {
                 paint.setColor(desenho.tabLinhas.get(i).corLinha);
@@ -430,6 +433,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         //else{
             desenho.addLinha(corLinha,tamanhoLinha);
             desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
+            desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
         //}
         return true;
     }
