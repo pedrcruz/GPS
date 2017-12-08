@@ -220,13 +220,13 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
                 ad.paint.setStrokeWidth(20);
                 ad.setCorLinha(Color.WHITE);
-                ad.setTamanhoPincel(20);
+                ad.setTamanhoLinha(20);
                 break;
             case R.id.lapis:
                 seleccionaFerramenta("lapis");
                 if(currentColorState != 99 || currentColorState != Color.WHITE)
                     ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-                ad.setTamanhoPincel(5);
+                ad.setTamanhoLinha(5);
                 break;
             case R.id.cor1:
 
@@ -248,9 +248,10 @@ class Ponto implements Serializable {
 class Linha implements Serializable{
     public ArrayList<Ponto> tabPontos;
     int corLinha = Color.BLACK;
+    int tamLinha = 5;
 
-    public Linha(int cor) {
-        corLinha = cor;
+    public Linha(int cor, int tamLinha) {
+        corLinha = cor;this.tamLinha = tamLinha;
         tabPontos = new ArrayList<>();
     }
 }
@@ -280,8 +281,8 @@ class Desenho implements Serializable{
     void addPonto(Ponto p) {
         tabLinhas.get(tabLinhas.size()-1).tabPontos.add(p);
     }
-    void addLinha(int cor) {
-        Linha linha = new Linha(cor);
+    void addLinha(int cor, int tamLinha) {
+        Linha linha = new Linha(cor,tamLinha);
         tabLinhas.add(linha);
     }
     boolean temLinhas() {
@@ -294,19 +295,19 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     GestureDetector gd;
     Paint paint;
     int corLinha;
-    int tamanhoPincel;
+    int tamanhoLinha;
 
     void setCorLinha(int cor) {
         corLinha = cor;
     }
-    void setTamanhoPincel(int tam){
-        tamanhoPincel=tam;
+    void setTamanhoLinha(int tamLinha){
+        this.tamanhoLinha=tamLinha;
     }
 
     public AreaDesenho(Context context, Desenho desenho) {
         super(context);
         this.desenho = desenho;
-        corLinha = Color.BLACK; tamanhoPincel = 5;
+        corLinha = Color.BLACK; tamanhoLinha = 5;
         if (desenho.imagemFundo != null)
             Aplicacao.setPic(this,desenho.imagemFundo);
 
@@ -336,7 +337,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
         float lastx=0,lasty=0;
         for(int i=0;i<desenho.tabLinhas.size();i++) {
             paint.setColor(desenho.tabLinhas.get(i).corLinha);
-            paint.setStrokeWidth(tamanhoPincel);
+            paint.setStrokeWidth(desenho.tabLinhas.get(i).tamLinha);
             for (int j = 0; j < desenho.tabLinhas.get(i).tabPontos.size(); j++) {
                 float x = desenho.tabLinhas.get(i).tabPontos.get(j).x;
                 float y = desenho.tabLinhas.get(i).tabPontos.get(j).y;
@@ -350,7 +351,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
 
     @Override
     public boolean onDown(MotionEvent e) {
-        desenho.addLinha(corLinha);
+        desenho.addLinha(corLinha,tamanhoLinha);
         desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
         return true;
     }
