@@ -219,43 +219,43 @@
             android:id="@+id/carimbo1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_barco"
+            android:src="@mipmap/carimbo1"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo2"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_basket"
+            android:src="@mipmap/carimbo2"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo3"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_bola"
+            android:src="@mipmap/carimbo3"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo4"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_sol"
+            android:src="@mipmap/carimbo4"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo5"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:src="@mipmap/c_cao"
+        android:src="@mipmap/carimbo5"
         android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo6"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_nave"
+            android:src="@mipmap/carimbo6"
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/carimbo7"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:src="@mipmap/c_carro"
+            android:src="@mipmap/carimbo7"
             android:layout_weight="1"/>
 
     </LinearLayout>

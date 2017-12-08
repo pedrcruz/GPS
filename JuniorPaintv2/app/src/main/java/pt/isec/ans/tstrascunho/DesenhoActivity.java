@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     AreaDesenho ad;
     FrameLayout fr;
     String strTitulo;
-    ImageView carimbo1;
+    ImageView carimbo1,carimbo2,carimbo3,carimbo4,carimbo5,carimbo6,carimbo7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,27 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ImageView balde = ((ImageView) this.findViewById(R.id.balde));
         ImageView borracha = ((ImageView) this.findViewById(R.id.borracha));
         ImageView lapis = ((ImageView) this.findViewById(R.id.lapis));
+
+        carimbo1 =  findViewById(R.id.carimbo1);
+        carimbo2 =  findViewById(R.id.carimbo2);
+        carimbo3 =  findViewById(R.id.carimbo3);
+        carimbo4 =  findViewById(R.id.carimbo4);
+        carimbo5 =  findViewById(R.id.carimbo5);
+        carimbo6 =  findViewById(R.id.carimbo6);
+        carimbo7 =  findViewById(R.id.carimbo7);
         //
         balde.setOnClickListener(this);
         borracha.setOnClickListener(this);
         lapis.setOnClickListener(this);
+
+
+        carimbo1.setOnClickListener(this);
+        carimbo2.setOnClickListener(this);
+        carimbo3.setOnClickListener(this);
+        carimbo4.setOnClickListener(this);
+        carimbo5.setOnClickListener(this);
+        carimbo6.setOnClickListener(this);
+        carimbo7.setOnClickListener(this);
 //------------------------------------
         if ((savedInstanceState != null && savedInstanceState.getBoolean("Gravado")) ||
                 getIntent().getBooleanExtra("Editar", false)) {
@@ -157,6 +175,27 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         }
     }
+    public void onChoosingCarimbo(View v) {
+
+        if (!findViewById(R.id.borracha).isSelected()) {
+
+            if (findViewById(R.id.carimbo1).isPressed() == true) //cor 1
+                ad.setCarimbo(R.mipmap.carimbo1);
+            else if (findViewById(R.id.carimbo2).isPressed() == true) //cor 2
+                ad.setCarimbo(R.mipmap.carimbo2);
+            else if (findViewById(R.id.carimbo3).isPressed() == true) //cor 3
+                ad.setCarimbo(R.mipmap.carimbo3);
+            else if (findViewById(R.id.carimbo4).isPressed() == true) //cor 4
+                ad.setCarimbo(R.mipmap.carimbo4);
+            else if (findViewById(R.id.carimbo5).isPressed() == true) //cor 5
+                ad.setCarimbo(R.mipmap.carimbo5);
+            else if (findViewById(R.id.carimbo6).isPressed() == true) //cor 6
+                ad.setCarimbo(R.mipmap.carimbo6);
+            else if (findViewById(R.id.carimbo7).isPressed() == true) //cor 7
+                ad.setCarimbo(R.mipmap.carimbo7);
+
+        }
+    }
 
     public void seleccionaFerramenta(String nome) {
         if (nome.equals("borracha")) {
@@ -230,8 +269,27 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                     ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
                 ad.setTamanhoLinha(5);
                 break;
-            case R.id.cor1:
-
+            case R.id.carimbo1:
+                ad.setCarimbo(R.mipmap.carimbo1);
+                Log.i("a tocar carimbo","carimbo1");
+                break;
+            case R.id.carimbo2:
+                ad.setCarimbo(R.mipmap.carimbo2);
+                break;
+            case R.id.carimbo3:
+                ad.setCarimbo(R.mipmap.carimbo3);
+                break;
+            case R.id.carimbo4:
+                ad.setCarimbo(R.mipmap.carimbo4);
+                break;
+            case R.id.carimbo5:
+                ad.setCarimbo(R.mipmap.carimbo5);
+                break;
+            case R.id.carimbo6:
+                ad.setCarimbo(R.mipmap.carimbo6);
+                break;
+            case R.id.carimbo7:
+                ad.setCarimbo(R.mipmap.carimbo7);
                 break;
         }
     }
@@ -280,7 +338,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         String imagemFundo;
         ArrayList<Linha> tabLinhas;
         Date dataCriacao;
-        ImageView carimbo;
+
         int x,y;
 
         public Desenho(String strTitulo, int corFundo) {
@@ -289,6 +347,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             this.imagemFundo = null;
             this.tabLinhas = new ArrayList<>();
             dataCriacao = new Date();
+         //   IdCarimbo = R.mipmap.carimbo1;
         }
 
         public Desenho(String strTitulo, String imagemFundo) {
@@ -300,9 +359,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         }
 
-        public void setCarimbo(ImageView v) {
-            this.carimbo = v;
-        }
+
 
         void addPonto(Ponto p) {
             tabLinhas.get(tabLinhas.size() - 1).tabPontos.add(p);
@@ -332,13 +389,16 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         Paint paint;
         int corLinha;
         int tamanhoLinha;
-
+        int IdCarimbo = 0;
         void setCorLinha(int cor) {
             corLinha = cor;
         }
 
         void setTamanhoLinha(int tamLinha) {
             this.tamanhoLinha = tamLinha;
+        }
+        public void setCarimbo(int IdCarimbo) {
+            this.IdCarimbo = IdCarimbo;
         }
 
 
@@ -361,10 +421,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             if (gd.onTouchEvent(event)) {
-                Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.borracha);
-                Canvas canvas = new Canvas();
-                Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-                canvas.drawBitmap(myBitmap,50, 50, paint);
                 invalidate();
                 return true;
             }
@@ -379,18 +435,22 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             if (!desenho.temLinhas())
                 return;
             // if(desenho.carimbo != null) {
-            Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.c_barco);
-            float canvasx = (float) getWidth();
-            float canvasy = (float) getHeight();
-            ;
+            if (IdCarimbo != 0) {
+                Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), IdCarimbo);
+                float canvasx = (float) getWidth();
+                float canvasy = (float) getHeight();
+                ;
 
                 Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-            float bitmapx = (float) myBitmap.getWidth();
-            float bitmapy = (float) myBitmap.getHeight();
-            float boardPosX = desenho.x -  225;
-            float boardPosY =  desenho.y -  225;
+                float bitmapx = (float) myBitmap.getWidth();
+                float bitmapy = (float) myBitmap.getHeight();
+                float boardPosX = desenho.x - 225;
+                float boardPosY = desenho.y - 225;
 
-          canvas.drawBitmap(indexcanvas,boardPosX,boardPosY, paint);
+                canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
+
+            }
+
             float lastx = 0, lasty = 0;
             for (int i = 0; i < desenho.tabLinhas.size(); i++) {
                 paint.setColor(desenho.tabLinhas.get(i).corLinha);
@@ -406,7 +466,9 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                     lasty = y;
                 }
             }
+
         }
+
 
     @Override
     public boolean onDown(MotionEvent e) {/*
