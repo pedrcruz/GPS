@@ -182,10 +182,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         }
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
     public void onChoosingFerramentaDesenho(View v) {
 
 
@@ -208,19 +205,11 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         }
 
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
     public void getcarimbo() {
-
     }
 
 
 
-<<<<<<< HEAD
-        }
-    }
     //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
     public void onClick(View view) {
         switch (view.getId()) {//dá o ID da imageView
@@ -251,35 +240,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 }
 
 
-=======
-        //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
-        public void onClick(View view) {
-            switch (view.getId()) {//dá o ID da imageView
-                case R.id.balde:
-                    seleccionaFerramenta("balde");
-                    break;
-                case R.id.borracha:
-                    seleccionaFerramenta("borracha");
-
-                    currentColorState = ad.paint.getColor();//Guarda a cor que está a ser usada
-                    ad.paint.setStrokeWidth(20);
-                    ad.setCorLinha(Color.WHITE);
-                    ad.setTamanhoLinha(20);
-                    break;
-                case R.id.lapis:
-                    seleccionaFerramenta("lapis");
-                    if (currentColorState != 99 || currentColorState != Color.WHITE)
-                        ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-                    ad.setTamanhoLinha(5);
-                    break;
-                case R.id.cor1:
-
-                    break;
-            }
-        }
-
-
-    }
     class Carimbo implements Serializable {
         ImageView img;
 
@@ -291,7 +251,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         }
     }
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
+
     class Ponto implements Serializable {
         float x, y;
 
@@ -300,29 +260,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             this.y = y;
         }
     }
-<<<<<<< HEAD
-
-
-
-
-class Carimbo implements Serializable {
-    ImageView img;
-    public Carimbo(ImageView img)
-    {
-
-    }
-    public void putCarimbo(String img)
-    {
-
-    }
-
-
-
-
-}
-
-=======
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
 
     class Linha implements Serializable {
         public ArrayList<Ponto> tabPontos;
@@ -343,10 +280,6 @@ class Carimbo implements Serializable {
         ArrayList<Linha> tabLinhas;
         Date dataCriacao;
         ImageView carimbo;
-<<<<<<< HEAD
-
-=======
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
 
 
         public Desenho(String strTitulo, int corFundo) {
@@ -479,8 +412,6 @@ class Carimbo implements Serializable {
             }
         }
 
-<<<<<<< HEAD
-
     @Override
     public boolean onDown(MotionEvent e) {/*
         desenho.addLinha(corLinha,tamanhoLinha);
@@ -503,42 +434,26 @@ class Carimbo implements Serializable {
         return true;
     }
 
-=======
-        @Override
-        public boolean onDown(MotionEvent e) {
-            desenho.addLinha(corLinha, tamanhoLinha);
-            desenho.addPonto(new Ponto(e.getX(0), e.getY(0)));
-
-            return true;
-        }
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
-
-
     @Override
     public void onShowPress(MotionEvent e) {
-
-<<<<<<< HEAD
     }
 
-=======
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
+
 
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
             return true;
-        }
+    }
 
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            desenho.addPonto(new Ponto(e2.getX(0), e2.getY(0)));
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        desenho.addPonto(new Ponto(e2.getX(0), e2.getY(0)));
 
-            invalidate();
+        invalidate();
 
-            return true;
-        }
+        return true;
+    }
 
         @Override
         public void onLongPress(MotionEvent e) {
@@ -550,7 +465,6 @@ class Carimbo implements Serializable {
             return false;
         }
 
-<<<<<<< HEAD
 
 
 
@@ -586,6 +500,5 @@ class Carimbo implements Serializable {
             }
         }}
 }
-=======
->>>>>>> 4dc6efda628c19e850c4cb3aac260cb00291431c
+
 
