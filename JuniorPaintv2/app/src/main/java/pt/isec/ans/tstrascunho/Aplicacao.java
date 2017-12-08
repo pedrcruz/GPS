@@ -144,4 +144,5 @@ public class Aplicacao extends Application {
         BitmapDrawable bd = new BitmapDrawable(view.getResources(), bitmap);
         view.setBackground(bd);
     }
+
 }
