@@ -214,17 +214,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     }
 
 
-    class Carimbo implements Serializable {
-        ImageView img;
 
-        public Carimbo(ImageView img) {
-
-        }
-
-        public void putCarimbo(String img) {
-
-        }
-    }
         //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
         public void onClick(View view) {
             switch (view.getId()) {//dá o ID da imageView
@@ -253,7 +243,17 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
 
     }
+    class Carimbo implements Serializable {
+        ImageView img;
 
+      public Carimbo(ImageView img) {
+
+      }
+
+     public void putCarimbo(String img) {
+
+        }
+    }
     class Ponto implements Serializable {
         float x, y;
 
@@ -363,7 +363,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.borracha);
                 Canvas canvas = new Canvas();
                 Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-                canvas.drawBitmap(myBitmap, event.getX(), event.getY(), null);
+                canvas.drawBitmap(myBitmap,50, 50, paint);
                 invalidate();
                 return true;
             }
@@ -406,9 +406,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
                     if (j > 0)
                         canvas.drawLine(lastx, lasty, x, y, paint);
-                    Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-                    canvas.drawBitmap(indexcanvas, x, y, paint);
-                    invalidate();
 
                     lastx = x;
                     lasty = y;
