@@ -3,22 +3,12 @@ package pt.isec.ans.tstrascunho;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-<<<<<<< HEAD
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-=======
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
->>>>>>> 96c66faf724662ffd7926859430cdc5594246c5c
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -194,10 +184,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
     public void onChoosingFerramentaDesenho(View v){
 
-
-
-
-/////////////////////
         if(findViewById(R.id.balde).isPressed()==true){
             /*seleccionaFerramenta("balde");*/
 
@@ -219,34 +205,12 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         }
 
     }
-<<<<<<< HEAD
+
     public void getcarimbo()
     {
 
     }
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId())
-        {
-            case R.id.carimbo1:
-                carimbo1.getResources();
-                break;
-        }
-    }
-}
-class Carimbo implements Serializable {
-    ImageView img;
-    public Carimbo(ImageView img)
-    {
-
-    }
-    public void putCarimbo(String img)
-    {
-
-    }
-=======
-//EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
+    //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
     @Override
     public void onClick(View view) {
         switch(view.getId()){//dá o ID da imageView
@@ -255,7 +219,6 @@ class Carimbo implements Serializable {
                 break;
             case R.id.borracha:
                 seleccionaFerramenta("borracha");
-
                 currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
                 ad.paint.setStrokeWidth(20);
                 ad.setCorLinha(Color.WHITE);
@@ -270,10 +233,27 @@ class Carimbo implements Serializable {
             case R.id.cor1:
 
                 break;
+            case R.id.carimbo1:
+                carimbo1.getResources();
+                break;
         }
     }
 
->>>>>>> abfe625196f7a209f00e4b3dffc17d4798736db1
+}
+class Carimbo implements Serializable {
+    ImageView img;
+    public Carimbo(ImageView img)
+    {
+
+    }
+    public void putCarimbo(String img)
+    {
+
+    }
+
+
+
+
 }
 
 class Ponto implements Serializable {
@@ -450,9 +430,6 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
             desenho.addLinha(corLinha,tamanhoLinha);
             desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
         //}
-=======
-
->>>>>>> 96c66faf724662ffd7926859430cdc5594246c5c
         return true;
     }
 
