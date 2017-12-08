@@ -387,16 +387,9 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
             float bitmapx = (float) myBitmap.getWidth();
             float bitmapy = (float) myBitmap.getHeight();
-            float boardPosX = desenho.x -  bitmapx / 2;
-            float boardPosY =  desenho.y -  bitmapy / 2;
+            float boardPosX = desenho.x -  225;
+            float boardPosY =  desenho.y -  225;
 
-            //      canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
-            //       invalidate();
-            //c.drawRect(r, paint);
-            //       canvas.drawBitmap(myBitmap, null, rectangule, paint);
-            //    canvas.drawBitmap(myBitmap,getPivotX(),getPivotY() , null);
-
-            //   }
           canvas.drawBitmap(indexcanvas,boardPosX,boardPosY, paint);
             float lastx = 0, lasty = 0;
             for (int i = 0; i < desenho.tabLinhas.size(); i++) {
