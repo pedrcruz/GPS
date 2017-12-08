@@ -2,13 +2,13 @@ package pt.isec.ans.tstrascunho;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +19,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class DesenhoActivity extends Activity implements View.OnClickListener {
     int currentColorState = 99;
@@ -350,9 +350,23 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     }
 
     @Override
-    public boolean onDown(MotionEvent e) {
+    public boolean onDown(MotionEvent e) {/*
         desenho.addLinha(corLinha,tamanhoLinha);
         desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
+        return true;*/
+       // if(findViewById(R.id.balde).isSelected()==true){
+        /*final Point p1 = new Point();
+        p1.x=(int) x; //x co-ordinate where the user touches on the screen
+        p1.y=(int) y; //y co-ordinate where the user touches on the screen
+
+        FloodFill f= new FloodFill();
+        f.floodFill(bmp,pt,targetColor,replacementColor);*/
+        //    desenho.addCarimbo(R.id.carimbo1);<--este método é o tal q tás a fzr para desenhar o carimbo Por exemplo
+       // }
+        //else{
+            desenho.addLinha(corLinha,tamanhoLinha);
+            desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
+        //}
         return true;
     }
 
@@ -360,6 +374,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     public void onShowPress(MotionEvent e) {
 
     }
+
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
@@ -382,4 +397,35 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
+    //Função do BALDE
+    private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor){
+        Queue<Point> q = new LinkedList<Point>();
+        q.add(pt);
+        while (q.size() > 0) {
+            Point n = q.poll();
+            if (bmp.getPixel(n.x, n.y) != targetColor)
+                continue;
+
+            Point w = n, e = new Point(n.x + 1, n.y);
+            while ((w.x > 0) && (bmp.getPixel(w.x, w.y) == targetColor)) {
+                bmp.setPixel(w.x, w.y, replacementColor);
+                if ((w.y > 0) && (bmp.getPixel(w.x, w.y - 1) == targetColor))
+                    q.add(new Point(w.x, w.y - 1));
+                if ((w.y < bmp.getHeight() - 1)
+                        && (bmp.getPixel(w.x, w.y + 1) == targetColor))
+                    q.add(new Point(w.x, w.y + 1));
+                w.x--;
+            }
+            while ((e.x < bmp.getWidth() - 1)
+                    && (bmp.getPixel(e.x, e.y) == targetColor)) {
+                bmp.setPixel(e.x, e.y, replacementColor);
+
+                if ((e.y > 0) && (bmp.getPixel(e.x, e.y - 1) == targetColor))
+                    q.add(new Point(e.x, e.y - 1));
+                if ((e.y < bmp.getHeight() - 1)
+                        && (bmp.getPixel(e.x, e.y + 1) == targetColor))
+                    q.add(new Point(e.x, e.y + 1));
+                e.x++;
+            }
+        }}
 }
