@@ -40,9 +40,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_desenho);
 
 //IMAGE VIEW(borracha, lápis, balde)
-        ImageView balde = ((ImageView)this.findViewById(R.id.balde));
-        ImageView borracha = ((ImageView)this.findViewById(R.id.borracha));
-        ImageView lapis = ((ImageView)this.findViewById(R.id.lapis));
         ImageView balde = ((ImageView) this.findViewById(R.id.balde));
         ImageView borracha = ((ImageView) this.findViewById(R.id.borracha));
         ImageView lapis = ((ImageView) this.findViewById(R.id.lapis));
@@ -51,9 +48,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         borracha.setOnClickListener(this);
         lapis.setOnClickListener(this);
 //------------------------------------
-        if ((savedInstanceState!=null && savedInstanceState.getBoolean("Gravado")) ||
-             getIntent().getBooleanExtra("Editar",false))  {
-            desenho = ((Aplicacao)getApplication()).save;
         if ((savedInstanceState != null && savedInstanceState.getBoolean("Gravado")) ||
                 getIntent().getBooleanExtra("Editar", false)) {
             desenho = ((Aplicacao) getApplication()).save;
@@ -62,8 +56,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             if (strTitulo == null)
                 strTitulo = "(sem titulo)";
             String strImage = getIntent().getStringExtra("ImagemFundo");
-            if (strImage !=null)
-                desenho = new Desenho(strTitulo,strImage);
             if (strImage != null)
                 desenho = new Desenho(strTitulo, strImage);
             else {
@@ -75,7 +67,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         carimbo1 = findViewById(R.id.carimbo1);
         fr = (FrameLayout) findViewById(R.id.frAreaDesenho);
-        ad = new AreaDesenho(this,desenho);
         ad = new AreaDesenho(this, desenho);
         fr.addView(ad);
 
@@ -85,12 +76,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_desenho,menu);
         mi.inflate(R.menu.menu_desenho, menu);
         return true;
     }
 
-//LIXO
     //LIXO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -193,17 +182,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         }
     }
-
-<<<<<<< HEAD
-    public void onChoosingFerramentaDesenho(View v){
-
-        if(findViewById(R.id.balde).isPressed()==true){
-=======
     public void onChoosingFerramentaDesenho(View v) {
 
 
         if (findViewById(R.id.balde).isPressed() == true) {
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
             /*seleccionaFerramenta("balde");*/
 
         } else if (findViewById(R.id.borracha).isPressed() == true) {
@@ -222,12 +204,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         }
 
     }
-<<<<<<< HEAD
-
-    public void getcarimbo()
-    {
-=======
-
     public void getcarimbo() {
 
     }
@@ -244,35 +220,35 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         }
     }
-        //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
-        public void onClick(View view) {
-            switch (view.getId()) {//dá o ID da imageView
-                case R.id.balde:
-                    seleccionaFerramenta("balde");
-                    break;
-                case R.id.borracha:
-                    seleccionaFerramenta("borracha");
+    //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
+    public void onClick(View view) {
+        switch (view.getId()) {//dá o ID da imageView
+            case R.id.balde:
+                seleccionaFerramenta("balde");
+                break;
+            case R.id.borracha:
+                seleccionaFerramenta("borracha");
 
-                    currentColorState = ad.paint.getColor();//Guarda a cor que está a ser usada
-                    ad.paint.setStrokeWidth(20);
-                    ad.setCorLinha(Color.WHITE);
-                    ad.setTamanhoLinha(20);
-                    break;
-                case R.id.lapis:
-                    seleccionaFerramenta("lapis");
-                    if (currentColorState != 99 || currentColorState != Color.WHITE)
-                        ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-                    ad.setTamanhoLinha(5);
-                    break;
-                case R.id.cor1:
+                currentColorState = ad.paint.getColor();//Guarda a cor que está a ser usada
+                ad.paint.setStrokeWidth(20);
+                ad.setCorLinha(Color.WHITE);
+                ad.setTamanhoLinha(20);
+                break;
+            case R.id.lapis:
+                seleccionaFerramenta("lapis");
+                if (currentColorState != 99 || currentColorState != Color.WHITE)
+                    ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
+                ad.setTamanhoLinha(5);
+                break;
+            case R.id.cor1:
 
-                    break;
-            }
+                break;
         }
-
-
     }
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
+
+
+}
+
 
     class Ponto implements Serializable {
         float x, y;
@@ -282,37 +258,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             this.y = y;
         }
     }
-<<<<<<< HEAD
-    //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){//dá o ID da imageView
-            case R.id.balde:
-                seleccionaFerramenta("balde");
-                break;
-            case R.id.borracha:
-                seleccionaFerramenta("borracha");
-                currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
-                ad.paint.setStrokeWidth(20);
-                ad.setCorLinha(Color.WHITE);
-                ad.setTamanhoLinha(20);
-                break;
-            case R.id.lapis:
-                seleccionaFerramenta("lapis");
-                if(currentColorState != 99 || currentColorState != Color.WHITE)
-                    ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-                ad.setTamanhoLinha(5);
-                break;
-            case R.id.cor1:
 
-                break;
-            case R.id.carimbo1:
-                carimbo1.getResources();
-                break;
-        }
-    }
 
-}
+
+
 class Carimbo implements Serializable {
     ImageView img;
     public Carimbo(ImageView img)
@@ -328,7 +277,7 @@ class Carimbo implements Serializable {
 
 
 }
-=======
+
 
     class Linha implements Serializable {
         public ArrayList<Ponto> tabPontos;
@@ -349,7 +298,7 @@ class Carimbo implements Serializable {
         ArrayList<Linha> tabLinhas;
         Date dataCriacao;
         ImageView carimbo;
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
+
 
 
         public Desenho(String strTitulo, int corFundo) {
@@ -408,6 +357,7 @@ class Carimbo implements Serializable {
         void setTamanhoLinha(int tamLinha) {
             this.tamanhoLinha = tamLinha;
         }
+
 
         public AreaDesenho(Context context, Desenho desenho) {
             super(context);
@@ -484,12 +434,12 @@ class Carimbo implements Serializable {
             }
         }
 
-<<<<<<< HEAD
+
     @Override
     public boolean onDown(MotionEvent e) {/*
         desenho.addLinha(corLinha,tamanhoLinha);
         desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
-<<<<<<< HEAD
+
         return true;*/
        // if(findViewById(R.id.balde).isSelected()==true){
         /*final Point p1 = new Point();
@@ -506,31 +456,18 @@ class Carimbo implements Serializable {
         //}
         return true;
     }
-=======
-        @Override
-        public boolean onDown(MotionEvent e) {
-            desenho.addLinha(corLinha, tamanhoLinha);
-            desenho.addPonto(new Ponto(e.getX(0), e.getY(0)));
 
-            return true;
-        }
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
 
-        @Override
-        public void onShowPress(MotionEvent e) {
 
-        }
+    @Override
+    public void onShowPress(MotionEvent e) {
 
-<<<<<<< HEAD
+    }
+
+
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-=======
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
-
-
             return true;
         }
 
@@ -552,13 +489,10 @@ class Carimbo implements Serializable {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             return false;
         }
-    }
 
-<<<<<<< HEAD
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
+
+
+
     //Função do BALDE
     private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor){
         Queue<Point> q = new LinkedList<Point>();
@@ -591,6 +525,4 @@ class Carimbo implements Serializable {
             }
         }}
 }
-=======
 
->>>>>>> 65270403d9a14f2f8a361666e56897489a8fff6a
