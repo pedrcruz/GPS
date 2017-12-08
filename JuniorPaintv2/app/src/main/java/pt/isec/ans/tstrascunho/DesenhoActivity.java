@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DesenhoActivity extends Activity {
+public class DesenhoActivity extends Activity implements View.OnClickListener {
     int currentColorState = 99;
     Desenho desenho;
     AreaDesenho ad;
@@ -36,6 +36,15 @@ public class DesenhoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desenho);
 
+//IMAGE VIEW(borracha, lápis, balde)
+        ImageView balde = ((ImageView)this.findViewById(R.id.balde));
+        ImageView borracha = ((ImageView)this.findViewById(R.id.borracha));
+        ImageView lapis = ((ImageView)this.findViewById(R.id.lapis));
+        //
+        balde.setOnClickListener(this);
+        borracha.setOnClickListener(this);
+        lapis.setOnClickListener(this);
+//------------------------------------
         if ((savedInstanceState!=null && savedInstanceState.getBoolean("Gravado")) ||
              getIntent().getBooleanExtra("Editar",false))  {
             desenho = ((Aplicacao)getApplication()).save;
@@ -149,7 +158,7 @@ public class DesenhoActivity extends Activity {
             findViewById(R.id.borracha).setSelected(true);
             findViewById(R.id.lapis).setSelected(false);
             findViewById(R.id.balde).setSelected(false);
-            findViewById(R.id.borracha).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.borracha).setBackgroundColor(Color.BLUE);
             findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
             findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
         }
@@ -157,7 +166,7 @@ public class DesenhoActivity extends Activity {
             findViewById(R.id.borracha).setSelected(false);
             findViewById(R.id.lapis).setSelected(true);
             findViewById(R.id.balde).setSelected(false);
-            findViewById(R.id.lapis).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.lapis).setBackgroundColor(Color.BLUE);
             findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         }
@@ -165,33 +174,66 @@ public class DesenhoActivity extends Activity {
             findViewById(R.id.borracha).setSelected(false);
             findViewById(R.id.lapis).setSelected(false);
             findViewById(R.id.balde).setSelected(true);
-            findViewById(R.id.balde).setBackgroundColor(Color.BLUE);//FALTA MUDAR O ICONE para um "seleccionado"
+            findViewById(R.id.balde).setBackgroundColor(Color.BLUE);
             findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         }
     }
+
     public void onChoosingFerramentaDesenho(View v){
+
+
+
+
+/////////////////////
         if(findViewById(R.id.balde).isPressed()==true){
-            seleccionaFerramenta("balde");
+            /*seleccionaFerramenta("balde");*/
 
         }
         else if(findViewById(R.id.borracha).isPressed()==true){
-            seleccionaFerramenta("borracha");
+            /*seleccionaFerramenta("borracha");
 
             currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
             ad.paint.setStrokeWidth(20);
             ad.setCorLinha(Color.WHITE);
-            ad.paint.setStyle(Paint.Style.FILL);
+            ad.paint.setStyle(Paint.Style.FILL);*/
         }
         else if(findViewById(R.id.lapis).isPressed()==true){
-            seleccionaFerramenta("lapis");
+           /* seleccionaFerramenta("lapis");
             if(currentColorState != 99)
                 ad.paint.setColor(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
             ad.paint.setStrokeWidth(5);
-            ad.paint.setStyle(Paint.Style.FILL);
+            ad.paint.setStyle(Paint.Style.FILL);*/
         }
 
     }
+//EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){//dá o ID da imageView
+            case R.id.balde:
+                seleccionaFerramenta("balde");
+                break;
+            case R.id.borracha:
+                seleccionaFerramenta("borracha");
+
+                currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
+                ad.paint.setStrokeWidth(20);
+                ad.setCorLinha(Color.WHITE);
+                ad.setTamanhoPincel(20);
+                break;
+            case R.id.lapis:
+                seleccionaFerramenta("lapis");
+                if(currentColorState != 99 || currentColorState != Color.WHITE)
+                    ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
+                ad.setTamanhoPincel(5);
+                break;
+            case R.id.cor1:
+
+                break;
+        }
+    }
+
 }
 
 class Ponto implements Serializable {
@@ -252,15 +294,19 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     GestureDetector gd;
     Paint paint;
     int corLinha;
+    int tamanhoPincel;
 
     void setCorLinha(int cor) {
         corLinha = cor;
+    }
+    void setTamanhoPincel(int tam){
+        tamanhoPincel=tam;
     }
 
     public AreaDesenho(Context context, Desenho desenho) {
         super(context);
         this.desenho = desenho;
-        corLinha = Color.BLACK;
+        corLinha = Color.BLACK; tamanhoPincel = 5;
         if (desenho.imagemFundo != null)
             Aplicacao.setPic(this,desenho.imagemFundo);
 
@@ -290,6 +336,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
         float lastx=0,lasty=0;
         for(int i=0;i<desenho.tabLinhas.size();i++) {
             paint.setColor(desenho.tabLinhas.get(i).corLinha);
+            paint.setStrokeWidth(tamanhoPincel);
             for (int j = 0; j < desenho.tabLinhas.get(i).tabPontos.size(); j++) {
                 float x = desenho.tabLinhas.get(i).tabPontos.get(j).x;
                 float y = desenho.tabLinhas.get(i).tabPontos.get(j).y;
