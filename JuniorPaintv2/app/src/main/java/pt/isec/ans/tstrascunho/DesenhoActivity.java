@@ -2,11 +2,15 @@ package pt.isec.ans.tstrascunho;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -25,12 +29,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DesenhoActivity extends Activity {
+public class DesenhoActivity extends Activity implements View.OnClickListener {
     int currentColorState = 99;
     Desenho desenho;
     AreaDesenho ad;
     FrameLayout fr;
     String strTitulo;
+    ImageView carimbo1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,7 @@ public class DesenhoActivity extends Activity {
             Aplicacao.addDesenho(desenho);
         }
 
-
+        carimbo1 = findViewById(R.id.carimbo1);
         fr = (FrameLayout) findViewById(R.id.frAreaDesenho);
         ad = new AreaDesenho(this,desenho);
         fr.addView(ad);
@@ -192,6 +197,31 @@ public class DesenhoActivity extends Activity {
         }
 
     }
+    public void getcarimbo()
+    {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId())
+        {
+            case R.id.carimbo1:
+                carimbo1.getResources();
+                break;
+        }
+    }
+}
+class Carimbo implements Serializable {
+    ImageView img;
+    public Carimbo(ImageView img)
+    {
+
+    }
+    public void putCarimbo(String img)
+    {
+
+    }
 }
 
 class Ponto implements Serializable {
@@ -219,6 +249,8 @@ class Desenho implements Serializable{
     String imagemFundo;
     ArrayList<Linha> tabLinhas;
     Date dataCriacao;
+    ImageView carimbo;
+
 
     public Desenho(String strTitulo, int corFundo) {
         this.strTitulo = strTitulo;
@@ -233,6 +265,11 @@ class Desenho implements Serializable{
         this.imagemFundo = imagemFundo;
         this.tabLinhas = new ArrayList<>();
         dataCriacao = new Date();
+
+    }
+    public void setCarimbo(ImageView v)
+    {
+        this.carimbo = v;
     }
 
     void addPonto(Ponto p) {
@@ -241,6 +278,13 @@ class Desenho implements Serializable{
     void addLinha(int cor) {
         Linha linha = new Linha(cor);
         tabLinhas.add(linha);
+    }
+    void addCarimbo()
+    {
+        if(carimbo != null)
+        {
+
+        }
     }
     boolean temLinhas() {
         return tabLinhas.size()>0;
@@ -274,8 +318,14 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (gd.onTouchEvent(event))
+        if (gd.onTouchEvent(event)) {
+            Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.borracha);
+            Canvas canvas = new Canvas();
+            Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+            canvas.drawBitmap(myBitmap,event.getX(),event.getY(),null);
+            invalidate();
             return true;
+        }
         return super.onTouchEvent(event);
     }
 
@@ -286,15 +336,37 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
 
         if (!desenho.temLinhas())
             return;
+       // if(desenho.carimbo != null) {
+            Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.c_barco);
+           float canvasx = (float) getWidth();
+           float canvasy = (float) getHeight();;
 
-        float lastx=0,lasty=0;
+    //    Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+        float bitmapx = (float) myBitmap.getWidth();
+        float bitmapy = (float) myBitmap.getHeight();
+           float boardPosX = (canvasx - bitmapx) / 2;
+           float boardPosY = (canvasy - bitmapy) / 2;
+
+  //      canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
+ //       invalidate();
+        //c.drawRect(r, paint);
+     //       canvas.drawBitmap(myBitmap, null, rectangule, paint);
+        //    canvas.drawBitmap(myBitmap,getPivotX(),getPivotY() , null);
+
+     //   }
+       float lastx=0,lasty=0;
         for(int i=0;i<desenho.tabLinhas.size();i++) {
             paint.setColor(desenho.tabLinhas.get(i).corLinha);
             for (int j = 0; j < desenho.tabLinhas.get(i).tabPontos.size(); j++) {
                 float x = desenho.tabLinhas.get(i).tabPontos.get(j).x;
                 float y = desenho.tabLinhas.get(i).tabPontos.get(j).y;
+
                 if (j > 0)
                     canvas.drawLine(lastx, lasty, x, y, paint);
+                    Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+                canvas.drawBitmap(indexcanvas, x, y, paint);
+                    invalidate();
+
                 lastx = x;
                 lasty = y;
             }
@@ -305,6 +377,7 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
     public boolean onDown(MotionEvent e) {
         desenho.addLinha(corLinha);
         desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
+
         return true;
     }
 
@@ -315,13 +388,17 @@ class AreaDesenho extends View implements GestureDetector.OnGestureListener{
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        return false;
+
+
+        return true;
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         desenho.addPonto(new Ponto(e2.getX(0),e2.getY(0)));
+
         invalidate();
+
         return true;
     }
 
