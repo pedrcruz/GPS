@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     FrameLayout fr;
     String strTitulo;
     ImageView carimbo1,carimbo2,carimbo3,carimbo4,carimbo5,carimbo6,carimbo7;
+    Button save,home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ImageView balde = ((ImageView) this.findViewById(R.id.balde));
         ImageView borracha = ((ImageView) this.findViewById(R.id.borracha));
         ImageView lapis = ((ImageView) this.findViewById(R.id.lapis));
-
+//SAVE & HOME
+        save = findViewById(R.id.button);
+        home = findViewById(R.id.button2);
+//CARIMBOS ( 1 A 7)
         carimbo1 =  findViewById(R.id.carimbo1);
         carimbo2 =  findViewById(R.id.carimbo2);
         carimbo3 =  findViewById(R.id.carimbo3);
@@ -52,11 +57,13 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         carimbo5 =  findViewById(R.id.carimbo5);
         carimbo6 =  findViewById(R.id.carimbo6);
         carimbo7 =  findViewById(R.id.carimbo7);
-        //
+//LISTENERS
         balde.setOnClickListener(this);
         borracha.setOnClickListener(this);
         lapis.setOnClickListener(this);
 
+        save.setOnClickListener(this);
+        home.setOnClickListener(this);
 
         carimbo1.setOnClickListener(this);
         carimbo2.setOnClickListener(this);
@@ -91,39 +98,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         getActionBar().setTitle(desenho.strTitulo);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_desenho, menu);
-        return true;
-    }
-
-    //LIXO
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuPreto:
-                ad.setCorLinha(Color.BLACK);
-                break;
-            case R.id.menuVermelho:
-                ad.setCorLinha(Color.RED);
-                break;
-            case R.id.menuVerde:
-                ad.setCorLinha(Color.GREEN);
-                break;
-            case R.id.menuAzul:
-                ad.setCorLinha(Color.BLUE);
-                break;
-            case R.id.menuBranco:
-                ad.setCorLinha(Color.WHITE);
-                break;
-            case R.id.menuGravar:
-                Aplicacao.gravar();
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onBackPressed() {
@@ -172,27 +146,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
             cd = (ColorDrawable) tvCorSelecionada.getBackground();//busca a cor do background
             ad.setCorLinha(cd.getColor());                        //atribui a cor da TV ao lápis
-
-        }
-    }
-    public void onChoosingCarimbo(View v) {
-
-        if (!findViewById(R.id.borracha).isSelected()) {
-
-            if (findViewById(R.id.carimbo1).isPressed() == true) //cor 1
-                ad.setCarimbo(R.mipmap.carimbo1);
-            else if (findViewById(R.id.carimbo2).isPressed() == true) //cor 2
-                ad.setCarimbo(R.mipmap.carimbo2);
-            else if (findViewById(R.id.carimbo3).isPressed() == true) //cor 3
-                ad.setCarimbo(R.mipmap.carimbo3);
-            else if (findViewById(R.id.carimbo4).isPressed() == true) //cor 4
-                ad.setCarimbo(R.mipmap.carimbo4);
-            else if (findViewById(R.id.carimbo5).isPressed() == true) //cor 5
-                ad.setCarimbo(R.mipmap.carimbo5);
-            else if (findViewById(R.id.carimbo6).isPressed() == true) //cor 6
-                ad.setCarimbo(R.mipmap.carimbo6);
-            else if (findViewById(R.id.carimbo7).isPressed() == true) //cor 7
-                ad.setCarimbo(R.mipmap.carimbo7);
 
         }
     }
@@ -271,7 +224,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.carimbo1:
                 ad.setCarimbo(R.mipmap.carimbo1);
-                Log.i("a tocar carimbo","carimbo1");
                 break;
             case R.id.carimbo2:
                 ad.setCarimbo(R.mipmap.carimbo2);
@@ -291,6 +243,13 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             case R.id.carimbo7:
                 ad.setCarimbo(R.mipmap.carimbo7);
                 break;
+            case R.id.button:
+                Aplicacao.gravar();
+                finish();
+                break;
+            case R.id.button2:
+                finish();
+                break;
         }
     }
 
@@ -306,9 +265,6 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             this.y = y;
         }
 
-     public void putCarimbo(String img) {
-
-        }
     }
 
     class Ponto implements Serializable {
@@ -347,9 +303,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             this.imagemFundo = null;
             this.tabLinhas = new ArrayList<>();
             dataCriacao = new Date();
-         //   IdCarimbo = R.mipmap.carimbo1;
+            //   IdCarimbo = R.mipmap.carimbo1;
         }
-
         public Desenho(String strTitulo, String imagemFundo) {
             this.strTitulo = strTitulo;
             this.corFundo = Color.WHITE;
@@ -389,7 +344,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         Paint paint;
         int corLinha;
         int tamanhoLinha;
-        int IdCarimbo = 0;
+        int IdCarimbo;
+        Bitmap indexcanvas;
         void setCorLinha(int cor) {
             corLinha = cor;
         }
@@ -416,6 +372,9 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.FILL);
 
+            IdCarimbo = 0;
+            indexcanvas = null;
+
         }
 
         @Override
@@ -431,25 +390,21 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+            float bitmapx, bitmapy, boardPosX = desenho.x-255,boardPosY = desenho.y-255;
+
 
             if (!desenho.temLinhas())
                 return;
             // if(desenho.carimbo != null) {
             if (IdCarimbo != 0) {
                 Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), IdCarimbo);
-                float canvasx = (float) getWidth();
-                float canvasy = (float) getHeight();
-                ;
 
-                Bitmap indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-                float bitmapx = (float) myBitmap.getWidth();
-                float bitmapy = (float) myBitmap.getHeight();
-                float boardPosX = desenho.x - 225;
-                float boardPosY = desenho.y - 225;
 
-                canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
-
+                indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+                IdCarimbo = 0;
             }
+
+
 
             float lastx = 0, lasty = 0;
             for (int i = 0; i < desenho.tabLinhas.size(); i++) {
@@ -466,6 +421,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                     lasty = y;
                 }
             }
+            if(indexcanvas != null)
+                canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
 
         }
 
@@ -488,7 +445,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         //else{
             desenho.addLinha(corLinha,tamanhoLinha);
             desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
-            desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
+            if(IdCarimbo != 0)
+                desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
         //}
         return true;
     }
