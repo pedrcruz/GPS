@@ -95,7 +95,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ad = new AreaDesenho(this, desenho);
         fr.addView(ad);
 
-        getActionBar().setTitle(desenho.strTitulo);
+        getActionBar().setTitle("Desenho");
     }
 
 
@@ -218,8 +218,9 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.lapis:
                 seleccionaFerramenta("lapis");
-                if (currentColorState != 99 || currentColorState != Color.WHITE)
+                if (currentColorState != 99 && currentColorState != Color.WHITE)
                     ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
+
                 ad.setTamanhoLinha(5);
                 break;
             case R.id.carimbo1:
@@ -402,6 +403,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
                 indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
                 IdCarimbo = 0;
+
             }
 
 
@@ -421,8 +423,9 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                     lasty = y;
                 }
             }
-            if(indexcanvas != null)
+            if(indexcanvas != null )
                 canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
+
 
         }
 
