@@ -95,7 +95,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ad = new AreaDesenho(this, desenho);
         fr.addView(ad);
 
-        getActionBar().setTitle("Desenho");
+     //   getActionBar().setTitle("Desenho");
     }
 
 

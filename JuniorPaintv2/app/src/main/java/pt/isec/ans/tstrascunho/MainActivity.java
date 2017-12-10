@@ -6,21 +6,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends Activity {
+    public class MainActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+        }
 
-    public void onSolido(View v) {
+        public void onSolido(View v) {
 
-        Intent intent = new Intent(this,DesenhoActivity.class);
-        intent.putExtra("CorFundo", Color.rgb(255,255,255));
-        intent.putExtra("Titulo","titulo");
-        startActivity(intent);
-    }
+            Intent intent = new Intent(this,DesenhoActivity.class);
+            intent.putExtra("CorFundo", Color.rgb(255,255,255));
+            intent.putExtra("Titulo","titulo");
+            startActivity(intent);
+        }
 
     public void onGaleria(View v) {
        Intent intent = new Intent(this,GaleriaActivity.class);
