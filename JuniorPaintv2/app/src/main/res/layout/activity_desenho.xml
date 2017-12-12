@@ -22,9 +22,12 @@
         <ImageView
             android:id="@+id/lapis"
             android:clickable="true"
+<<<<<<< HEAD
             android:state_selected="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+=======
+>>>>>>> 87aa854fc2e943b874b8a884fd3f739e3fe060f3
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/lapis"/>
 
