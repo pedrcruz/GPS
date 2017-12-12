@@ -27,9 +27,11 @@ public class HistoricoActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(HistoricoActivity.this,DesenhoActivity.class);
+
                 ((Aplicacao)getApplication()).save=Aplicacao.getListaDesenhos().get(position);
                 intent.putExtra("Editar",true);
                 startActivity(intent);
+                finish();
             }
         });
     }
