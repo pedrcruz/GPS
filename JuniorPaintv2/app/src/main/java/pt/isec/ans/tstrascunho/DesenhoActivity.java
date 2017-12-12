@@ -35,20 +35,24 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     FrameLayout fr;
     String strTitulo;
     ImageView carimbo1,carimbo2,carimbo3,carimbo4,carimbo5,carimbo6,carimbo7;
+
     Button save,home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_desenho);
 
 //IMAGE VIEW(borracha, lápis, balde)
         ImageView balde = ((ImageView) this.findViewById(R.id.balde));
         ImageView borracha = ((ImageView) this.findViewById(R.id.borracha));
         ImageView lapis = ((ImageView) this.findViewById(R.id.lapis));
+
 //SAVE & HOME
         save = findViewById(R.id.button);
         home = findViewById(R.id.button2);
+
 //CARIMBOS ( 1 A 7)
         carimbo1 =  findViewById(R.id.carimbo1);
         carimbo2 =  findViewById(R.id.carimbo2);
@@ -64,6 +68,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         save.setOnClickListener(this);
         home.setOnClickListener(this);
+
+
 
         carimbo1.setOnClickListener(this);
         carimbo2.setOnClickListener(this);
@@ -94,9 +100,15 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         fr = (FrameLayout) findViewById(R.id.frAreaDesenho);
         ad = new AreaDesenho(this, desenho);
         fr.addView(ad);
-
+// TOGGLE da seleccao das ferramentas de desenho
+        desenho.setBalde(false);
+        desenho.setBorracha(false);
+        desenho.setLapis(true);
+//selecciona o lápis por predefinicao
+        seleccionaFerramenta("lapis");
      //   getActionBar().setTitle("Desenho");
     }
+
 
 
     @Override
@@ -150,56 +162,32 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
     public void seleccionaFerramenta(String nome) {
         if (nome.equals("borracha")) {
-            findViewById(R.id.borracha).setSelected(true);
-            findViewById(R.id.lapis).setSelected(false);
-            findViewById(R.id.balde).setSelected(false);
+            desenho.setBalde(false);
+            desenho.setBorracha(true);
+            desenho.setLapis(false);
+
             findViewById(R.id.borracha).setBackgroundColor(Color.BLUE);
             findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
             findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
         } else if (nome.equals("lapis")) {
-            findViewById(R.id.borracha).setSelected(false);
-            findViewById(R.id.lapis).setSelected(true);
-            findViewById(R.id.balde).setSelected(false);
+            desenho.setBalde(false);
+            desenho.setBorracha(false);
+            desenho.setLapis(true);
             findViewById(R.id.lapis).setBackgroundColor(Color.BLUE);
             findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         } else if (nome.equals("balde")) {
-            findViewById(R.id.borracha).setSelected(false);
-            findViewById(R.id.lapis).setSelected(false);
-            findViewById(R.id.balde).setSelected(true);
+            desenho.setBalde(true);
+            desenho.setBorracha(false);
+            desenho.setLapis(false);
             findViewById(R.id.balde).setBackgroundColor(Color.BLUE);
             findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
             findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
         }
     }
-
-    public void onChoosingFerramentaDesenho(View v) {
-
-
-        if (findViewById(R.id.balde).isPressed() == true) {
-            /*seleccionaFerramenta("balde");*/
-
-        } else if (findViewById(R.id.borracha).isPressed() == true) {
-            /*seleccionaFerramenta("borracha");
-
-            currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
-            ad.paint.setStrokeWidth(20);
-            ad.setCorLinha(Color.WHITE);
-            ad.paint.setStyle(Paint.Style.FILL);*/
-        } else if (findViewById(R.id.lapis).isPressed() == true) {
-           /* seleccionaFerramenta("lapis");
-            if(currentColorState != 99)
-                ad.paint.setColor(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-            ad.paint.setStrokeWidth(5);
-            ad.paint.setStyle(Paint.Style.FILL);*/
-        }
-
-    }
-    public void getcarimbo() {
-    }
-
 
 
     //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
@@ -257,7 +245,15 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
 }
 
+    class Balde implements Serializable {
+        float x, y;
 
+        public Balde(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+    }
     class Carimbo implements Serializable {
         float x, y;
 
@@ -295,7 +291,36 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         String imagemFundo;
         ArrayList<Linha> tabLinhas;
         Date dataCriacao;
+        private boolean baldeBool = false;
+        private boolean borrachaBool = false;
+        private boolean lapisBool = false;
+//SETTERS ferramentas
+        public void setBalde(boolean balde) {
+            this.baldeBool = balde;
+        }
 
+        public void setBorracha(boolean borracha) {
+            this.borrachaBool = borracha;
+        }
+
+        public void setLapis(boolean lapis) {
+            this.lapisBool = lapis;
+        }
+//GETTERS ferramentas
+        public boolean isBalde() {
+
+            return baldeBool;
+        }
+
+        public boolean isBorracha() {
+            return borrachaBool;
+        }
+
+        public boolean isLapis() {
+            return lapisBool;
+        }
+
+        private boolean lapis = false;
         int x,y;
 
         public Desenho(String strTitulo, int corFundo) {
@@ -332,6 +357,12 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 this.y = (int)c.y;
             }
         }
+        void addBalde(Balde b) {
+            if (b != null) {
+                this.x = (int)b.x;
+                this.y = (int)b.y;
+            }
+        }
 
         boolean temLinhas() {
             return tabLinhas.size() > 0;
@@ -340,13 +371,13 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
     class AreaDesenho extends View implements GestureDetector.OnGestureListener {
         Desenho desenho;
-
         GestureDetector gd;
         Paint paint;
         int corLinha;
         int tamanhoLinha;
         int IdCarimbo;
         Bitmap indexcanvas;
+
         void setCorLinha(int cor) {
             corLinha = cor;
         }
@@ -354,6 +385,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         void setTamanhoLinha(int tamLinha) {
             this.tamanhoLinha = tamLinha;
         }
+
         public void setCarimbo(int IdCarimbo) {
             this.IdCarimbo = IdCarimbo;
         }
@@ -361,6 +393,8 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
         public AreaDesenho(Context context, Desenho desenho) {
             super(context);
+
+
             this.desenho = desenho;
             corLinha = Color.BLACK;
             tamanhoLinha = 5;
@@ -377,7 +411,37 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
             indexcanvas = null;
 
         }
+        public void floodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor) {
+            Queue<Point> q = new LinkedList<Point>();
+            q.add(pt);
+            while (q.size() > 0) {
+                Point n = q.poll();
+                if (bmp.getPixel(n.x, n.y) != targetColor)
+                    continue;
 
+                Point w = n, e = new Point(n.x + 1, n.y);
+                while ((w.x > 0) && (bmp.getPixel(w.x, w.y) == targetColor)) {
+                    bmp.setPixel(w.x, w.y, replacementColor);
+                    if ((w.y > 0) && (bmp.getPixel(w.x, w.y - 1) == targetColor))
+                        q.add(new Point(w.x, w.y - 1));
+                    if ((w.y < bmp.getHeight() - 1)
+                            && (bmp.getPixel(w.x, w.y + 1) == targetColor))
+                        q.add(new Point(w.x, w.y + 1));
+                    w.x--;
+                }
+                while ((e.x < bmp.getWidth() - 1)
+                        && (bmp.getPixel(e.x, e.y) == targetColor)) {
+                    bmp.setPixel(e.x, e.y, replacementColor);
+
+                    if ((e.y > 0) && (bmp.getPixel(e.x, e.y - 1) == targetColor))
+                        q.add(new Point(e.x, e.y - 1));
+                    if ((e.y < bmp.getHeight() - 1)
+                            && (bmp.getPixel(e.x, e.y + 1) == targetColor))
+                        q.add(new Point(e.x, e.y + 1));
+                    e.x++;
+                }
+            }
+        }
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             if (gd.onTouchEvent(event)) {
@@ -391,7 +455,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
-            float bitmapx, bitmapy, boardPosX = desenho.x-255,boardPosY = desenho.y-255;
+            float bitmapx, bitmapy, boardPosX = desenho.x - 255, boardPosY = desenho.y - 255;
 
 
             if (!desenho.temLinhas())
@@ -423,57 +487,60 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                     lasty = y;
                 }
             }
-            if(indexcanvas != null )
+            if (indexcanvas != null)
                 canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
+
 
 
         }
 
 
-    @Override
-    public boolean onDown(MotionEvent e) {/*
-        desenho.addLinha(corLinha,tamanhoLinha);
-        desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
+        @Override
+        public boolean onDown(MotionEvent e) {
 
-        return true;*/
-       // if(findViewById(R.id.balde).isSelected()==true){
-        /*final Point p1 = new Point();
-        p1.x=(int) x; //x co-ordinate where the user touches on the screen
-        p1.y=(int) y; //y co-ordinate where the user touches on the screen
-
-        FloodFill f= new FloodFill();
-        f.floodFill(bmp,pt,targetColor,replacementColor);*/
-        //    desenho.addCarimbo(R.id.carimbo1);<--este método é o tal q tás a fzr para desenhar o carimbo Por exemplo
-       // }
-        //else{
             desenho.addLinha(corLinha,tamanhoLinha);
             desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
             if(IdCarimbo != 0)
                 desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
-        //}
-        return true;
-    }
 
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
+            //Se o balde estiver seleccionado quando tentar desenhar...
+            if(desenho.isBalde()){
 
+                final Point pt = new Point();
+                pt.x=(int) e.getX(); //x co-ordinate where the user touches on the screen
+                pt.y=(int) e.getY(); //y co-ordinate where the user touches on the screen
+                FrameLayout fr = (FrameLayout)findViewById(R.id.frAreaDesenho);
+                fr.buildDrawingCache();
 
+                Bitmap bmp = fr.getDrawingCache();
 
+                TextView tv = findViewById(R.id.cor3);
+                ColorDrawable cd = (ColorDrawable) tv.getBackground();//busca a cor do background
 
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
+                floodFill(bmp,pt,cd.getColor(),Color.GREEN);
+                //floodFill(bmp,pt,targetColor,replacementColor); EXEMPLO__________________
+            }
             return true;
-    }
+        }
 
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        desenho.addPonto(new Ponto(e2.getX(0), e2.getY(0)));
+        @Override
+        public void onShowPress(MotionEvent e) {
+        }
 
-        invalidate();
 
-        return true;
-    }
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            desenho.addPonto(new Ponto(e2.getX(0), e2.getY(0)));
+
+            invalidate();
+
+            return true;
+        }
 
         @Override
         public void onLongPress(MotionEvent e) {
@@ -488,37 +555,10 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
 
 
-    //Função do BALDE
-    private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor){
-        Queue<Point> q = new LinkedList<Point>();
-        q.add(pt);
-        while (q.size() > 0) {
-            Point n = q.poll();
-            if (bmp.getPixel(n.x, n.y) != targetColor)
-                continue;
 
-            Point w = n, e = new Point(n.x + 1, n.y);
-            while ((w.x > 0) && (bmp.getPixel(w.x, w.y) == targetColor)) {
-                bmp.setPixel(w.x, w.y, replacementColor);
-                if ((w.y > 0) && (bmp.getPixel(w.x, w.y - 1) == targetColor))
-                    q.add(new Point(w.x, w.y - 1));
-                if ((w.y < bmp.getHeight() - 1)
-                        && (bmp.getPixel(w.x, w.y + 1) == targetColor))
-                    q.add(new Point(w.x, w.y + 1));
-                w.x--;
-            }
-            while ((e.x < bmp.getWidth() - 1)
-                    && (bmp.getPixel(e.x, e.y) == targetColor)) {
-                bmp.setPixel(e.x, e.y, replacementColor);
 
-                if ((e.y > 0) && (bmp.getPixel(e.x, e.y - 1) == targetColor))
-                    q.add(new Point(e.x, e.y - 1));
-                if ((e.y < bmp.getHeight() - 1)
-                        && (bmp.getPixel(e.x, e.y + 1) == targetColor))
-                    q.add(new Point(e.x, e.y + 1));
-                e.x++;
-            }
-        }}
-}
+
+    }
+
 
 

@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="sensorLandscape">
+        <activity android:name=".MainActivity" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +21,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SolidoActivity" android:screenOrientation="sensorLandscape" />
-        <activity android:name=".GaleriaActivity" android:screenOrientation="sensorLandscape" />
-        <activity android:name=".CameraActivity" android:screenOrientation="sensorLandscape" />
-        <activity android:name=".HistoricoActivity" android:screenOrientation="sensorLandscape" />
-        <activity android:name=".DesenhoActivity" android:screenOrientation="sensorLandscape"></activity>
+
+        <activity android:name=".GaleriaActivity" android:screenOrientation="landscape" />
+        <activity android:name=".CameraActivity" android:screenOrientation="landscape" />
+        <activity android:name=".HistoricoActivity" android:screenOrientation="landscape" />
+        <activity android:name=".DesenhoActivity" android:screenOrientation="landscape"></activity>
 
 
     </application>
