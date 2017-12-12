@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -54,6 +55,8 @@ public class Aplicacao extends Application {
     }
 
     public static void gravar() {
+
+
         try {
             FileOutputStream fos = obj.openFileOutput("desenhos.dat", MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -65,7 +68,8 @@ public class Aplicacao extends Application {
             e.printStackTrace();
         }
 
-    }
+
+      }
 
     public static void ler() {
         obj.lstDesenhos = null;

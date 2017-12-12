@@ -61,7 +61,7 @@
             android:padding="20dp"
             android:text="Carregar Desenho"
             android:textSize="24sp"
-            android:onClick="onCamera"/>
+            android:onClick="onHistorico"/>
 
         <!--
         <Button

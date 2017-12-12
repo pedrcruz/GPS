@@ -45,12 +45,12 @@ public class GaleriaActivity extends Activity {
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
 
         int imageArr[] = new int[n];
-        imageArr[0] = R.drawable.image1;
+       /* imageArr[0] = R.drawable.image1;
         imageArr[1] = R.drawable.image2;
         imageArr[2] = R.drawable.image3;
-        imageArr[3] = R.drawable.image4;
-        imageArr[4] = R.drawable.image5;
-        imageArr[5] = R.drawable.image6;
+        //imageArr[3] = R.drawable.image4;
+        //imageArr[4] = R.drawable.image5;
+        imageArr[5] = R.drawable.image6;*/
 
         int choosedphoto = (int)(Math.random()*n );
 

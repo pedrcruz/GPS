@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,9 +28,11 @@ public class HistoricoActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(HistoricoActivity.this,DesenhoActivity.class);
+
                 ((Aplicacao)getApplication()).save=Aplicacao.getListaDesenhos().get(position);
                 intent.putExtra("Editar",true);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -60,7 +63,8 @@ public class HistoricoActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View layout = getLayoutInflater().inflate(R.layout.item_lista,null);
             Desenho des = lstDes.get(position);
-            ((TextView) layout.findViewById(R.id.tvTitulo)).setText(des.strTitulo);
+            //((TextView) layout.findViewById(R.id.tvTitulo)).setText(des.strTitulo);
+            //((ImageView) layout.findViewById(R.id.imagePreview))
             ((TextView) layout.findViewById(R.id.tvData)).setText(des.dataCriacao.toString());
             return layout;
         }

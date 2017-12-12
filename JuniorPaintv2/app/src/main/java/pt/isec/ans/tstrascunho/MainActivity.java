@@ -3,6 +3,7 @@ package pt.isec.ans.tstrascunho;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,7 +28,8 @@ import android.view.View;
         startActivity(intent);
     }
     public void onNovoJogo(View v) {
-        Intent intent = new Intent(this,DesenhoActivity.class);
+        Intent intent = new Intent(this,JogoActivity.class);
+      // intent.putExtra("frAreaDesenho", set);
         startActivity(intent);
     }
     public void onCamera(View v) {

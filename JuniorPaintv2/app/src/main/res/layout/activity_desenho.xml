@@ -18,36 +18,44 @@
         android:background="#aaa"
         android:orientation="vertical"
         android:padding="6dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/lapis"
+            android:onClick="onChoosingFerramentaDesenho"
             android:clickable="true"
-<<<<<<< HEAD
-            android:state_selected="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-=======
->>>>>>> 87aa854fc2e943b874b8a884fd3f739e3fe060f3
+            android:state_selected="false"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/lapis"/>
+            android:src="@mipmap/lapis"
+            android:layout_margin="3dp"/>
 
         <ImageView
             android:id="@+id/balde"
+            android:onClick="onChoosingFerramentaDesenho"
             android:state_selected="false"
             android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/balde" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@mipmap/balde"
+            android:layout_margin="3dp"/>
 
         <ImageView
             android:id="@+id/borracha"
+            android:onClick="onChoosingFerramentaDesenho"
             android:state_selected="false"
             android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/borracha" />
-
+            android:src="@mipmap/borracha"
+            android:layout_margin="3dp"/>
+</LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -189,7 +197,6 @@
         android:layout_marginLeft="80dp"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="#FFFFCC"
        android:orientation="horizontal"
        android:layout_gravity="right"
        android:layout_marginTop="62dp"
@@ -265,7 +272,8 @@
         android:layout_height="70dp"
         android:background="#aaa"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="10dp">
         <Button
             android:id="@+id/button"
             style="@android:style/Widget.Material.Light.Button.Borderless"

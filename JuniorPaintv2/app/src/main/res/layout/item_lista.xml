@@ -5,18 +5,37 @@
     android:padding="8dp">
     <LinearLayout
         android:padding="8dp"
-        android:background="#ffc040"
+        android:background="#4567ab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <TextView
+
+   <!--     <LinearLayout
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+-->
+      <!--  <TextView
         android:id="@+id/tvTitulo"
         android:padding="8dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Titulo"
-        android:textSize="20sp"/>
+        android:textSize="20sp"/>-->
+
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:background="#ffffe0"
+            android:scaleType="fitCenter" />
+
+
         <TextView
             android:id="@+id/tvData"
             android:layout_width="match_parent"
@@ -24,5 +43,7 @@
             android:textSize="16sp"
             android:gravity="right"
             android:text="2017.11.01 23:59"/>
+
+
     </LinearLayout>
 </FrameLayout>
