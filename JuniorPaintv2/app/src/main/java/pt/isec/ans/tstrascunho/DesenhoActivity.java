@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +42,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desenho);
-
+        getActionBar().hide();
 //IMAGE VIEW(borracha, lápis, balde)
         ImageView balde = ((ImageView) this.findViewById(R.id.balde));
         ImageView borracha = ((ImageView) this.findViewById(R.id.borracha));
@@ -95,13 +96,13 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         ad = new AreaDesenho(this, desenho);
         fr.addView(ad);
 
-     //   getActionBar().setTitle("Desenho");
+        //   getActionBar().setTitle("Desenho");
     }
 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
 
     }
 
@@ -151,59 +152,38 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
     }
 
     public void seleccionaFerramenta(String nome) {
+
         if (nome.equals("borracha")) {
             findViewById(R.id.borracha).setSelected(true);
             findViewById(R.id.lapis).setSelected(false);
             findViewById(R.id.balde).setSelected(false);
-            findViewById(R.id.borracha).setBackgroundColor(Color.BLUE);
-            findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
-            findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.borracha).setBackgroundColor(Color.rgb(200, 200, 200));
+            findViewById(R.id.lapis).setBackgroundColor(Color.rgb(170, 170, 170));
+            findViewById(R.id.balde).setBackgroundColor(Color.rgb(170, 170, 170));
         } else if (nome.equals("lapis")) {
             findViewById(R.id.borracha).setSelected(false);
             findViewById(R.id.lapis).setSelected(true);
             findViewById(R.id.balde).setSelected(false);
-            findViewById(R.id.lapis).setBackgroundColor(Color.BLUE);
-            findViewById(R.id.balde).setBackgroundColor(Color.GRAY);
-            findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.lapis).setBackgroundColor(Color.rgb(200, 200, 200));
+            findViewById(R.id.balde).setBackgroundColor(Color.rgb(170, 170, 170));
+            findViewById(R.id.borracha).setBackgroundColor(Color.rgb(170, 170, 170));
         } else if (nome.equals("balde")) {
             findViewById(R.id.borracha).setSelected(false);
             findViewById(R.id.lapis).setSelected(false);
             findViewById(R.id.balde).setSelected(true);
-            findViewById(R.id.balde).setBackgroundColor(Color.BLUE);
-            findViewById(R.id.lapis).setBackgroundColor(Color.GRAY);
-            findViewById(R.id.borracha).setBackgroundColor(Color.GRAY);
+            findViewById(R.id.balde).setBackgroundColor(Color.rgb(200, 200, 200));
+            findViewById(R.id.lapis).setBackgroundColor(Color.rgb(170, 170, 170));
+            findViewById(R.id.borracha).setBackgroundColor(Color.rgb(170, 170, 170));
         }
     }
 
-    public void onChoosingFerramentaDesenho(View v) {
-
-
-        if (findViewById(R.id.balde).isPressed() == true) {
-            /*seleccionaFerramenta("balde");*/
-
-        } else if (findViewById(R.id.borracha).isPressed() == true) {
-            /*seleccionaFerramenta("borracha");
-
-            currentColorState= ad.paint.getColor();//Guarda a cor que está a ser usada
-            ad.paint.setStrokeWidth(20);
-            ad.setCorLinha(Color.WHITE);
-            ad.paint.setStyle(Paint.Style.FILL);*/
-        } else if (findViewById(R.id.lapis).isPressed() == true) {
-           /* seleccionaFerramenta("lapis");
-            if(currentColorState != 99)
-                ad.paint.setColor(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-            ad.paint.setStrokeWidth(5);
-            ad.paint.setStyle(Paint.Style.FILL);*/
-        }
-
-    }
-    public void getcarimbo() {
-    }
 
 
 
     //EVENTOS DE CLIQUES NA ATIVIDADE DE DESENHO
     public void onClick(View view) {
+        Bitmap bm = null;
+        FrameLayout savedImage = null;
         switch (view.getId()) {//dá o ID da imageView
             case R.id.balde:
                 seleccionaFerramenta("balde");
@@ -224,7 +204,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 seleccionaFerramenta("lapis");
                 if (currentColorState != 99 && currentColorState != Color.WHITE)
                     ad.setCorLinha(currentColorState);//Carrega a cor que estava a usar antes de escolher a borracha
-                ad.setTamanhoLinha(5);
+                ad.setTamanhoLinha(10);
                 break;
             case R.id.carimbo1:
                 ad.setCarimbo(R.mipmap.carimbo1);
@@ -249,21 +229,23 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
                 ad.setCarimbo(R.mipmap.carimbo7);
                 break;
             case R.id.button:
-
-
-                Bitmap bm = null;
-                FrameLayout savedImage = null;
                 savedImage = (FrameLayout) findViewById(R.id.frAreaDesenho);
                 savedImage.setDrawingCacheEnabled(true);
                 savedImage.buildDrawingCache();
-                bm = savedImage.getDrawingCache();
-
-                 desenho.bmp=bm;
-
+                bm = Bitmap.createBitmap(savedImage.getDrawingCache());
+                ad.desenho.CarimboSaved = ad.indexcanvas;
+                desenho.bmp=bm;
                 Aplicacao.gravar();
                 finish();
                 break;
             case R.id.button2:
+                savedImage = (FrameLayout) findViewById(R.id.frAreaDesenho);
+                savedImage.setDrawingCacheEnabled(true);
+                savedImage.buildDrawingCache();
+                bm = Bitmap.createBitmap(savedImage.getDrawingCache());
+                ad.desenho.CarimboSaved = ad.indexcanvas;
+                desenho.bmp=bm;
+                Aplicacao.gravar();
                 finish();
                 break;
         }
@@ -273,204 +255,211 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 }
 
 
-    class Carimbo implements Serializable {
-        float x, y;
+class Carimbo implements Serializable {
+    float x, y;
 
-        public Carimbo(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
+    public Carimbo(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
+class Ponto implements Serializable {
+    float x, y;
+
+    public Ponto(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Linha implements Serializable {
+    public ArrayList<Ponto> tabPontos;
+    int corLinha = Color.BLACK;
+    int tamLinha = 10;
+
+    public Linha(int cor, int tamLinha) {
+        corLinha = cor;
+        this.tamLinha = tamLinha;
+        tabPontos = new ArrayList<>();
+    }
+}
+
+class Desenho extends DesenhoActivity implements Serializable {
+    String strTitulo;
+    int corFundo;
+    String imagemFundo;
+    ArrayList<Linha> tabLinhas;
+    Date dataCriacao;
+    Bitmap bmp;
+    int choosedimg;
+    Bitmap CarimboSaved;
+    int x,y;
+
+
+
+
+
+    public Desenho(String strTitulo, int corFundo) {
+        this.strTitulo = strTitulo;
+        this.corFundo = corFundo;
+        this.imagemFundo = null;
+        this.tabLinhas = new ArrayList<>();
+        dataCriacao = new Date();
+
+    }
+    public Desenho(String strTitulo, String imagemFundo) {
+        this.strTitulo = strTitulo;
+        this.corFundo = Color.WHITE;
+        this.imagemFundo = imagemFundo;
+        this.tabLinhas = new ArrayList<>();
+        dataCriacao = new Date();
 
     }
 
-    class Ponto implements Serializable {
-        float x, y;
 
-        public Ponto(float x, float y) {
-            this.x = x;
-            this.y = y;
+
+    void addPonto(Ponto p) {
+        tabLinhas.get(tabLinhas.size() - 1).tabPontos.add(p);
+    }
+
+    void addLinha(int cor, int tamLinha) {
+        Linha linha = new Linha(cor, tamLinha);
+        tabLinhas.add(linha);
+    }
+
+    void addCarimbo(Carimbo c) {
+        if (c != null) {
+            this.x = (int)c.x;
+            this.y = (int)c.y;
         }
     }
 
-    class Linha implements Serializable {
-        public ArrayList<Ponto> tabPontos;
-        int corLinha = Color.BLACK;
-        int tamLinha = 5;
+    boolean temLinhas() {
+        return tabLinhas.size() > 0;
+    }
+}
 
-        public Linha(int cor, int tamLinha) {
-            corLinha = cor;
-            this.tamLinha = tamLinha;
-            tabPontos = new ArrayList<>();
-        }
+class AreaDesenho extends View implements GestureDetector.OnGestureListener {
+    Desenho desenho;
+
+    GestureDetector gd;
+    Paint paint;
+    int corLinha;
+    int tamanhoLinha;
+    int IdCarimbo;
+    Bitmap indexcanvas;
+
+
+    void setCorLinha(int cor) {
+        corLinha = cor;
     }
 
-    class Desenho implements Serializable {
-        String strTitulo;
-        int corFundo;
-        String imagemFundo;
-        ArrayList<Linha> tabLinhas;
-        Date dataCriacao;
-        Bitmap bmp;
-
-
-        int x,y;
-
-
-
-
-
-        public Desenho(String strTitulo, int corFundo) {
-            this.strTitulo = strTitulo;
-            this.corFundo = corFundo;
-            this.imagemFundo = null;
-            this.tabLinhas = new ArrayList<>();
-            dataCriacao = new Date();
-            //   IdCarimbo = R.mipmap.carimbo1;
-        }
-        public Desenho(String strTitulo, String imagemFundo) {
-            this.strTitulo = strTitulo;
-            this.corFundo = Color.WHITE;
-            this.imagemFundo = imagemFundo;
-            this.tabLinhas = new ArrayList<>();
-            dataCriacao = new Date();
-
-        }
-
-
-
-        void addPonto(Ponto p) {
-            tabLinhas.get(tabLinhas.size() - 1).tabPontos.add(p);
-        }
-
-        void addLinha(int cor, int tamLinha) {
-            Linha linha = new Linha(cor, tamLinha);
-            tabLinhas.add(linha);
-        }
-
-        void addCarimbo(Carimbo c) {
-            if (c != null) {
-                this.x = (int)c.x;
-                this.y = (int)c.y;
-            }
-        }
-
-        boolean temLinhas() {
-            return tabLinhas.size() > 0;
-        }
+    void setTamanhoLinha(int tamLinha) {
+        this.tamanhoLinha = tamLinha;
     }
 
-    class AreaDesenho extends View implements GestureDetector.OnGestureListener {
-        Desenho desenho;
+    public void setCarimbo(int IdCarimbo) {
+        this.IdCarimbo = IdCarimbo;
+    }
 
-        GestureDetector gd;
-        Paint paint;
-        int corLinha;
-        int tamanhoLinha;
-        int IdCarimbo;
-        Bitmap indexcanvas;
-        void setCorLinha(int cor) {
-            corLinha = cor;
+    public AreaDesenho(Context context, Desenho desenho) {
+        super(context);
+        this.desenho = desenho;
+        corLinha = Color.BLACK;
+        tamanhoLinha = 10;
+
+        if(desenho.choosedimg == 0)
+        {
+            desenho.choosedimg = -1;
         }
-
-        void setTamanhoLinha(int tamLinha) {
-            this.tamanhoLinha = tamLinha;
-        }
-        public void setCarimbo(int IdCarimbo) {
-            this.IdCarimbo = IdCarimbo;
-        }
-
-
-        public AreaDesenho(Context context, Desenho desenho) {
-            super(context);
-            this.desenho = desenho;
-            corLinha = Color.BLACK;
-            tamanhoLinha = 5;
-            if (desenho.imagemFundo != null)
+        if (desenho.imagemFundo != null)
+        {
+            if(desenho.imagemFundo.equals("image"))
+                desenho.choosedimg = Aplicacao.setPic(this,desenho.choosedimg);
+            else
                 Aplicacao.setPic(this, desenho.imagemFundo);
+        }
 
-            gd = new GestureDetector(context, this);
-            paint = new Paint(Paint.DITHER_FLAG);
-            paint.setStrokeWidth(5);
-            paint.setColor(Color.BLACK);
-            paint.setStyle(Paint.Style.FILL);
+        gd = new GestureDetector(context, this);
+        paint = new Paint(Paint.DITHER_FLAG);
+        paint.setStrokeWidth(10);
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
 
-            IdCarimbo = 0;
+        IdCarimbo = 0;
+        if(desenho.CarimboSaved != null)
+            indexcanvas = desenho.CarimboSaved;
+        else
             indexcanvas = null;
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gd.onTouchEvent(event)) {
+            invalidate();
+            return true;
         }
-
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            if (gd.onTouchEvent(event)) {
-                invalidate();
-                return true;
-            }
-            return super.onTouchEvent(event);
-        }
-
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            float bitmapx, bitmapy, boardPosX = desenho.x-255,boardPosY = desenho.y-255;
-
-
-            if (!desenho.temLinhas())
-                return;
-            // if(desenho.carimbo != null) {
-            if (IdCarimbo != 0) {
-                Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), IdCarimbo);
-
-
-                indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
-                IdCarimbo = 0;
-
-            }
-
-
-
-            float lastx = 0, lasty = 0;
-            for (int i = 0; i < desenho.tabLinhas.size(); i++) {
-                paint.setColor(desenho.tabLinhas.get(i).corLinha);
-                paint.setStrokeWidth(desenho.tabLinhas.get(i).tamLinha);
-                for (int j = 0; j < desenho.tabLinhas.get(i).tabPontos.size(); j++) {
-                    float x = desenho.tabLinhas.get(i).tabPontos.get(j).x;
-                    float y = desenho.tabLinhas.get(i).tabPontos.get(j).y;
-
-                    if (j > 0)
-                        canvas.drawLine(lastx, lasty, x, y, paint);
-
-                    lastx = x;
-                    lasty = y;
-                }
-            }
-            if(indexcanvas != null )
-                canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
-
-
-        }
+        return super.onTouchEvent(event);
+    }
 
 
     @Override
-    public boolean onDown(MotionEvent e) {/*
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        float bitmapx, bitmapy, boardPosX = desenho.x-255,boardPosY = desenho.y-255;
+
+
+        if (!desenho.temLinhas())
+            return;
+        // if(desenho.carimbo != null) {
+        if(desenho.CarimboSaved != null)
+        {
+
+        }
+        if (IdCarimbo != 0 ) {
+            Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), IdCarimbo);
+
+
+            indexcanvas = Bitmap.createScaledBitmap(myBitmap, 450, 450, true);
+
+            IdCarimbo = 0;
+
+        }
+
+
+
+        float lastx = 0, lasty = 0;
+        for (int i = 0; i < desenho.tabLinhas.size(); i++) {
+            paint.setColor(desenho.tabLinhas.get(i).corLinha);
+            paint.setStrokeWidth(desenho.tabLinhas.get(i).tamLinha);
+            for (int j = 0; j < desenho.tabLinhas.get(i).tabPontos.size(); j++) {
+                float x = desenho.tabLinhas.get(i).tabPontos.get(j).x;
+                float y = desenho.tabLinhas.get(i).tabPontos.get(j).y;
+
+                if (j > 0)
+                    canvas.drawLine(lastx, lasty, x, y, paint);
+
+                lastx = x;
+                lasty = y;
+            }
+        }
+        if(indexcanvas != null )
+            canvas.drawBitmap(indexcanvas, boardPosX, boardPosY, paint);
+
+
+    }
+
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+
         desenho.addLinha(corLinha,tamanhoLinha);
         desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
-
-        return true;*/
-       // if(findViewById(R.id.balde).isSelected()==true){
-        /*final Point p1 = new Point();
-        p1.x=(int) x; //x co-ordinate where the user touches on the screen
-        p1.y=(int) y; //y co-ordinate where the user touches on the screen
-
-        FloodFill f= new FloodFill();
-        f.floodFill(bmp,pt,targetColor,replacementColor);*/
-        //    desenho.addCarimbo(R.id.carimbo1);<--este método é o tal q tás a fzr para desenhar o carimbo Por exemplo
-       // }
-        //else{
-            desenho.addLinha(corLinha,tamanhoLinha);
-            desenho.addPonto(new Ponto(e.getX(0),e.getY(0)));
-            if(IdCarimbo != 0)
-                desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
+        if(IdCarimbo != 0)
+            desenho.addCarimbo(new Carimbo(e.getX(0),e.getY(0)));
         //}
         return true;
     }
@@ -484,7 +473,7 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-            return true;
+        return true;
     }
 
     @Override
@@ -496,15 +485,15 @@ public class DesenhoActivity extends Activity implements View.OnClickListener {
         return true;
     }
 
-        @Override
-        public void onLongPress(MotionEvent e) {
+    @Override
+    public void onLongPress(MotionEvent e) {
 
-        }
+    }
 
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            return false;
-        }
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
 
 
 

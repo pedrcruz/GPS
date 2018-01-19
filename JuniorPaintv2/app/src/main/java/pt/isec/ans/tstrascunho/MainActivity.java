@@ -13,6 +13,7 @@ import android.view.View;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            getActionBar().hide();
         }
 
         public void onSolido(View v) {
@@ -28,7 +29,7 @@ import android.view.View;
         startActivity(intent);
     }
     public void onNovoJogo(View v) {
-        Intent intent = new Intent(this,JogoActivity.class);
+        Intent intent = new Intent(this,GaleriaActivity.class);
       // intent.putExtra("frAreaDesenho", set);
         startActivity(intent);
     }

@@ -4,11 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pt.isec.ans.tstrascunho.HistoricoActivity">
-    <ListView
-        android:id="@+id/lstHistorico"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_lista"/>
 
+    <LinearLayout
+        android:id="@+id/fr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <ListView
+            android:id="@+id/lstHistorico"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:listitem="@layout/item_lista" />
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -18,44 +18,42 @@
         android:background="#aaa"
         android:orientation="vertical"
         android:padding="6dp">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:orientation="vertical"
-    android:layout_marginTop="20dp">
-
-        <ImageView
-            android:id="@+id/lapis"
-            android:onClick="onChoosingFerramentaDesenho"
-            android:clickable="true"
-            android:state_selected="false"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/lapis"
-            android:layout_margin="3dp"/>
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
-        <ImageView
-            android:id="@+id/balde"
-            android:onClick="onChoosingFerramentaDesenho"
-            android:state_selected="false"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:src="@mipmap/balde"
-            android:layout_margin="3dp"/>
+            <ImageView
+                android:id="@+id/lapis"
+                android:clickable="true"
+                android:state_selected="false"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/lapis"
+                android:layout_margin="3dp"
+                android:background="#C8C8C8"/>
 
-        <ImageView
-            android:id="@+id/borracha"
-            android:onClick="onChoosingFerramentaDesenho"
-            android:state_selected="false"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/borracha"
-            android:layout_margin="3dp"/>
-</LinearLayout>
+            <ImageView
+                android:id="@+id/balde"
+                android:state_selected="false"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@mipmap/balde"
+                android:layout_margin="3dp"/>
+
+            <ImageView
+                android:id="@+id/borracha"
+                android:state_selected="false"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/borracha"
+                android:layout_margin="3dp"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -195,14 +193,15 @@
     <FrameLayout
         android:id="@+id/frAreaDesenho"
         android:layout_marginLeft="80dp"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="horizontal"
-       android:layout_gravity="right"
-       android:layout_marginTop="62dp"
-       android:padding="6dp"
-       android:layout_weight="1">
-   </FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="62dp"
+        android:padding="6dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF">
+    </FrameLayout>
 
 
     <LinearLayout
@@ -214,89 +213,89 @@
         android:orientation="horizontal">
 
 
-    <LinearLayout
-        android:layout_marginRight="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="65dp"
-        android:background="#aaa"
-        android:layout_weight="17"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="#aaa"
+            android:layout_weight="17"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/carimbo1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo1"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo2"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo3"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo4"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo5"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:src="@mipmap/carimbo5"
-        android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo6"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo6"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/carimbo7"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@mipmap/carimbo7"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo1"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo2"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo3"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo4"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo5"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo5"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo6"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo6"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/carimbo7"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@mipmap/carimbo7"
+                android:layout_weight="1"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:background="#aaa"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginRight="10dp">
-        <Button
-            android:id="@+id/button"
-            style="@android:style/Widget.Material.Light.Button.Borderless"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@android:drawable/ic_menu_save"
-            android:layout_gravity="end"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:background="#aaa"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_marginRight="10dp">
-        <Button
-            android:id="@+id/button2"
-            style="@android:style/Widget.Material.Light.Button.Borderless"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/home"
-            android:layout_gravity="end"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:background="#aaa"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginRight="10dp">
+            <Button
+                android:id="@+id/button"
+                style="@android:style/Widget.Material.Light.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/ic_menu_save"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:background="#aaa"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginRight="10dp">
+            <Button
+                android:id="@+id/button2"
+                style="@android:style/Widget.Material.Light.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/home"
+                android:layout_gravity="end"/>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>
 

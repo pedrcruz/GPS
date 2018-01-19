@@ -28,19 +28,20 @@ import java.io.OutputStream;
 
 public class GaleriaActivity extends Activity {
 
-    String imageFilePath=null;
+    String imageFilePath = null;
     ImageView imagePreview;
     int n = 6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galeria);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
-        copyAssets();
+
 
         imagePreview = (ImageView) findViewById(R.id.imagePreview);
 
@@ -52,16 +53,14 @@ public class GaleriaActivity extends Activity {
         //imageArr[4] = R.drawable.image5;
         imageArr[5] = R.drawable.image6;*/
 
-        int choosedphoto = (int)(Math.random()*n );
+        int choosedphoto = (int) (Math.random() * n);
 
         imagePreview.setImageResource(imageArr[choosedphoto]);
-        Intent intent = new Intent(this,DesenhoActivity.class);
+        Intent intent = new Intent(this, DesenhoActivity.class);
 
-        imageFilePath = new File(getFilesDir(),"image1.jpg").getAbsolutePath();
 
-        Log.i("alo", imageFilePath);
-        intent.putExtra("ImagemFundo", imageFilePath);
-        intent.putExtra("Titulo","Titulo");
+        intent.putExtra("ImagemFundo", "image");
+        intent.putExtra("Titulo", "Titulo");
         startActivity(intent);
         finish();
 
@@ -70,22 +69,22 @@ public class GaleriaActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = new MenuInflater(this);
-        mi.inflate(R.menu.menu_criar,menu);
+        mi.inflate(R.menu.menu_criar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.menuCriar) {
-            String strTitulo = ((EditText)findViewById(R.id.edTitulo)).getText().toString();
+        if (item.getItemId() == R.id.menuCriar) {
+            String strTitulo = ((EditText) findViewById(R.id.edTitulo)).getText().toString();
             if (strTitulo.isEmpty()) {
                 findViewById(R.id.edTitulo).requestFocus();
-                setImgFromAsset(imagePreview,"image1.jpg");//Para exemplificar assets... REMOVER
+                setImgFromAsset(imagePreview, "image1.jpg");//Para exemplificar assets... REMOVER
                 return true;
             }
-            Intent intent = new Intent(this,DesenhoActivity.class);
+            Intent intent = new Intent(this, DesenhoActivity.class);
             intent.putExtra("ImagemFundo", "drawable://image1.jpg");
-            intent.putExtra("Titulo",strTitulo);
+            intent.putExtra("Titulo", strTitulo);
             startActivity(intent);
             finish();
             return true;
@@ -93,8 +92,7 @@ public class GaleriaActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    void setImgFromAsset(ImageView mImageView,String strName)
-    {
+    void setImgFromAsset(ImageView mImageView, String strName) {
         AssetManager assetManager = getAssets();
         InputStream istr = null;
         try {
@@ -110,75 +108,28 @@ public class GaleriaActivity extends Activity {
     public void onEscolherImagem(View v) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent,10);
+        startActivityForResult(intent, 10);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 10 && data != null && data.getData() != null){
+        if (requestCode == 10 && data != null && data.getData() != null) {
             Uri _uri = data.getData();
 
             if (_uri != null) {
 
                 Cursor cursor = getContentResolver().query(_uri,
-                        new String[] { "file" },
+                        new String[]{"file"},
                         null, null, null);
-                Log.i("ddd",cursor.toString());
+                Log.i("ddd", cursor.toString());
                 cursor.moveToFirst();
 
                 imageFilePath = cursor.getString(0);
-                Aplicacao.setPic(imagePreview,imageFilePath);
+                Aplicacao.setPic(imagePreview, imageFilePath);
                 cursor.close();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    private void copyAssets() {
-        AssetManager assetManager = getAssets();
-        String[] files = null;
-        try {
-            files = assetManager.list("");
-        } catch (IOException e) {
-            Log.e("tag", "Failed to get asset file list.", e);
-        }
-        if (files != null) for (String filename : files) {
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = assetManager.open(filename);
-                File outFile = new File(getExternalFilesDir(null), filename);
-                out = new FileOutputStream(outFile);
-                copyFile(in, out);
-            } catch(IOException e) {
-                Log.e("tag", "Failed to copy asset file: " + filename, e);
-            }
-            finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        // NOOP
-                    }
-                }
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        // NOOP
-                    }
-                }
-            }
-        }
-    }
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while((read = in.read(buffer)) != -1){
-            out.write(buffer, 0, read);
-        }
-    }
 }
-
-

@@ -2,6 +2,9 @@ package pt.isec.ans.tstrascunho;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +23,7 @@ public class HistoricoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico);
-
+        getActionBar().hide();
         lstView = (ListView) findViewById(R.id.lstHistorico);
         HistoricoAdapter ha = new HistoricoAdapter(Aplicacao.getListaDesenhos());
         lstView.setAdapter(ha);
@@ -64,7 +67,10 @@ public class HistoricoActivity extends Activity {
             View layout = getLayoutInflater().inflate(R.layout.item_lista,null);
             Desenho des = lstDes.get(position);
             //((TextView) layout.findViewById(R.id.tvTitulo)).setText(des.strTitulo);
-            //((ImageView) layout.findViewById(R.id.imagePreview))
+
+           ImageView img = ((ImageView) layout.findViewById(R.id.imagePreview));
+           Bitmap bitmap = Bitmap.createScaledBitmap(Aplicacao.getListaDesenhos().get(position).bmp,200,200,true);
+            img.setImageBitmap(bitmap);
             ((TextView) layout.findViewById(R.id.tvData)).setText(des.dataCriacao.toString());
             return layout;
         }

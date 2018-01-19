@@ -33,6 +33,7 @@ public class Aplicacao extends Application {
     public Desenho save;
     ArrayList<Desenho> lstDesenhos;
     private static Aplicacao obj;
+    static AssetManager am;
 
     public Aplicacao() {
         obj = this;
@@ -43,6 +44,7 @@ public class Aplicacao extends Application {
     public void onCreate() {
         super.onCreate();
         ler();
+        am = getAssets();
     }
 
     public static ArrayList<Desenho> getListaDesenhos() {
@@ -69,7 +71,7 @@ public class Aplicacao extends Application {
         }
 
 
-      }
+    }
 
     public static void ler() {
         obj.lstDesenhos = null;
@@ -149,4 +151,65 @@ public class Aplicacao extends Application {
         view.setBackground(bd);
     }
 
+    public static int setPic(View view, int image) {
+        // Get the dimensions of the View
+        int targetW = view.getWidth();
+        int targetH = view.getHeight();
+
+        if (targetH == 0 || targetW == 0) {
+            WindowManager wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            DisplayMetrics metrics = new DisplayMetrics();
+            display.getMetrics(metrics);
+            targetW = metrics.widthPixels;
+            targetH = metrics.heightPixels;
+        }
+        int choosedphoto;
+        String imageArr[] = new String[7];
+
+        imageArr[0] = "image0.png";
+        imageArr[1] = "image1.png";
+        imageArr[2] = "image2.png";
+        imageArr[3] = "image3.png";
+        imageArr[4] = "image4.png";
+        imageArr[5] = "image5.png";
+        imageArr[6] = "image6.png";
+        if (image == -1)
+            choosedphoto = (int) (Math.random() * 6);
+        else
+            choosedphoto = image;
+        Log.i("CHOOSE", String.valueOf(choosedphoto));
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        InputStream is = null;
+        try {
+            is = am.open(imageArr[choosedphoto]);
+        } catch (IOException e) {
+            return -1;
+        }
+        BitmapFactory.decodeStream(is, null, bmOptions); // existem outros. Ex: decodeStream
+        try {
+            is.reset();
+        } catch (IOException e) {
+            return -1;
+        }
+
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeStream(is, null, bmOptions);
+        BitmapDrawable bd = new BitmapDrawable(view.getResources(), bitmap);
+        view.setBackground(bd);
+        return choosedphoto;
+    }
 }
+

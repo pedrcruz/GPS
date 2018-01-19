@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -72,6 +73,8 @@ public class JogoActivity extends Activity implements View.OnClickListener {
         carimbo5.setOnClickListener(this);
         carimbo6.setOnClickListener(this);
         carimbo7.setOnClickListener(this);
+
+        fr.getBackground();
 //------------------------------------
         if ((savedInstanceState != null && savedInstanceState.getBoolean("Gravado")) ||
                 getIntent().getBooleanExtra("Editar", false)) {
